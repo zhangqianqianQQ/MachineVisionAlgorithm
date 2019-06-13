@@ -1,0 +1,14 @@
+net: "models/b3do/train_val_rgb.prototxt"
+test_iter: 100
+test_interval: 1000
+base_lr: 0.001
+lr_policy: "step"
+gamma: 0.1
+stepsize: 1000
+display: 20
+max_iter: 30000
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 30000
+snapshot_prefix: "models/b3do/model/train_val_rgb"
+solver_mode: GPU
