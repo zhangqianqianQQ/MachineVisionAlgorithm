@@ -1,0 +1,68 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="273937816" file="/Users/luzixu/Documents/Git/Retinal-Image-Recognition/Codes/Retinal-Image-Recognition.prj" location="/Users/luzixu/Documents/Git/Retinal-Image-Recognition/Codes" name="Retinal-Image-Recognition" target="target.mlapps" target-name="App 打包">
+    <param.appname>Retinal-Image-Recognition</param.appname>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.icon />
+    <param.icons />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.version>1.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>/Users/luzixu/Documents</param.output>
+    <param.guid>a37ce8e2-1647-4afd-9f54-b3540cdc1657</param.guid>
+    <unset>
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.icon />
+      <param.icons />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.version />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/GUI.m</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}/GUI.fig</file>
+      <file>${PROJECT_ROOT}/ImageRecognition.m</file>
+      <file>${PROJECT_ROOT}/eg.jpg</file>
+    </fileset.depfun>
+    <fileset.resources />
+    <fileset.package />
+    <build-deliverables>
+      <file location="/Users/luzixu" name="Documents" optional="false">/Users/luzixu/Documents</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2018a.app</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.13.6</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
