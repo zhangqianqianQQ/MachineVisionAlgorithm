@@ -1,0 +1,116 @@
+================================================================================
+********************************************************************************
+
+ACTIVE CONTOUR WITHOUT EDGES                                          README.TXT
+Copyright (c) 2009, 
+Yue Wu @ ECE Department, Tufts University
+All Rights Reserved                                                  29 Feb 2009
+Last updated 03/25/2009 
+
+********************************************************************************
+================================================================================
+
+  1. Motivation
+
+================================================================================
+
+  These codes are homework 1 for EE291 Advanced Image Processing at Tufts
+  Univeristy. This course is taught by Professor Miller and is open to graduates.
+
+================================================================================
+
+  2. File contents
+
+================================================================================
+
+Folder name: CHANVESE
+
+  Image file: 
+		4colors.jpg
+		anti-mass.jpg
+		brain.jpg
+		flowers.jpg
+  Matlab M file:
+		checkstop.m
+		chenvese.m
+		demo chenvese.m
+		Heaviside.m
+		kappa.m
+		maskcircle2.m
+		reinitialization.m
+		showphi.m
+  Document file:
+		README.TXT
+		HELP.DOCX
+
+================================================================================
+
+  3. M file functions
+
+================================================================================
+
+   a) checkstop.m      : check whether curve evolution is stable to stop 
+   b) chenvese.m 	: main function
+		   	  execute active contours without edges algorithm
+   c) demo chenvese.m	: demos
+   d) Heaviside.m	: Heaviside function 
+   e) kappa.m	 	: calculate image curvature 
+   f) maskcircle2.m	: create built-in mask 
+   g) reinitialization.m: re-initialize phases for multiphase case 
+   h) showphi.m	 	: display intermediate results 
+
+Demo is written in cell structure, please execute cells one by one.
+All other functions above are called by the main function: CHENVESE.
+   
+================================================================================
+
+  4.  Installations and notes
+
+================================================================================
+
+  Installations
+   a) Extract CHENVESE folder to \\matlab\work\
+   b) Add a path in Matlab for this folder
+  
+  Notes:
+   a) Codes have been tested under Windows XP SP2, with 3G memory 
+      and Core2 2.66G CPU. Run time for each demo is about 5-30sec.
+      It may take longer run time for worse configurations. No test 
+      in MAC system.
+   b) These codes passed the tests under MATLAB 2008a and 2007 and 
+      might be not compatiable with older versions.
+   c) Make sure your MATLAB contains IMAGE PROCESSING TOOLBOX,
+      because some codes call built-in functions in that toolbox.
+   d) All images contained in the folder come from INTERNET.
+
+=============================================================================  
+   
+  5.  Play with codes
+
+=============================================================================
+
+   a) Please read HELP file carefully.
+   b) Open demo.m and execute codes as shown in HELP.
+   c) After you get known what's going on, try to revise parameters and see 
+      what happens.
+   d) Furthermore, find some other images to play with.
+
+=============================================================================
+
+   6. Author info
+
+=============================================================================
+   
+   a) Name      : Yue Wu
+   b) Email	: yue.wu@tufts.edu
+   c) Addreass  : Department of Electrical & Computer Engineering, 
+                  161 College Ave.
+                  Tufts University
+                  Medford, MA, 02155
+
+=============================================================================
+
+								END OF FILE
+
+=============================================================================
+     
