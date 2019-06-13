@@ -1,0 +1,21 @@
+function [ out ] = Conway( scores )
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
+out = scores;
+for i = 2:length(scores(:,1))-1
+    for j = 2:length(scores(1,:))-1
+        if (scores(i,j)==1)
+            if (sum(sum(scores(i-1:i+1,j-1:j+1)))<4)
+                out(i,j)=0;
+            end
+        end
+        if (scores(i,j)==0)
+            if (sum(sum(scores(i-1:i+1,j-1:j+1)))>6)
+                out(i,j)=1;
+            end
+        end
+    end
+end
+
+end
+

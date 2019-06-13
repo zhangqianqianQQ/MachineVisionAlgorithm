@@ -1,0 +1,21 @@
+README
+
+In order to run the code used, the MainRealTime function should be called.
+
+Syntax:
+MainRealTime( trainDir, videoPath, vidOutputName, s, widthOfBins, thresh );
+
+where:
+trainDir- 	directory of training images.  Note there should be
+               		a subdirectory in trainDir which contains .jpg images
+videoPath- 	the path to the video to be used for testing
+vidOutputName- 	the name of video file to output
+s- 		the window size that each frame will be split up in to form
+               		histograms (good value to use is 40)
+widthOfBins- 	the width of the bins for the RGB color
+               		histograms (good value to use is 16)
+thresh- 	the cutoff distance threshold used to measure whether
+               		or not window histograms are close enough to the training
+               		histograms. (good value to use is -6)
+
+NOTE: The first time running the program in a new Matlab window, there will be an overhead time cost as Matlab must create a parallel pool of workers since this program uses the Parallel Computing toolbox.
