@@ -1,0 +1,1 @@
+extract KAIST(set06-11) testing images with skip frame=1 for the fusion of successive images.
