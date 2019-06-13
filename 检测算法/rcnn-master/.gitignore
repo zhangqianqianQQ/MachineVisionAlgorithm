@@ -1,0 +1,12 @@
+.nfs*
+feat_cache/*
+*.mat
+bin/*
+selective_search/SelectiveSearchCodeIJCV
+data/caffe_nets
+data/rcnn_models
+data/selective_search_data
+data/window_files
+rcnn_config_local.m
+cachedir/*
+external/caffe

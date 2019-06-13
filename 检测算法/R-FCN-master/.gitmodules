@@ -1,0 +1,4 @@
+[submodule "external/caffe"]
+	path = external/caffe
+	url = https://github.com/daijifeng001/caffe-rfcn.git
+	branch = faster-R-CNN

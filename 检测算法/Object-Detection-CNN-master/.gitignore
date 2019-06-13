@@ -1,0 +1,4 @@
+trained_CNN/*.caffemodel
+trained_CNN/*.solverstate
+Maps/*
+*~
