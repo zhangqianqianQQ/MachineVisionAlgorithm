@@ -1,1 +1,0 @@
-place the toolbox folders(KAIST, Caltech) and name as toolbox(kaist) and toolbox(caltech), respectively

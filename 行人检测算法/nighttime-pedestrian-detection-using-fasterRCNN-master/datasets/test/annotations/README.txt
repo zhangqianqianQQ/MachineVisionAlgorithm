@@ -1,1 +1,0 @@
-place KAIST(set06-11, skip=20) testing images' annotations

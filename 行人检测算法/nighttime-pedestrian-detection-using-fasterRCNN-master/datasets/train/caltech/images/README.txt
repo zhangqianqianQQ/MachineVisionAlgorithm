@@ -1,1 +1,0 @@
-place Caltech(set00-10, skip=30) training images

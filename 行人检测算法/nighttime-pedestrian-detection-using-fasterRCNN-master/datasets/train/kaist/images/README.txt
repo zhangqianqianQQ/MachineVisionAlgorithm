@@ -1,1 +1,0 @@
-place KAIST(set00-05, skip=10) training images
