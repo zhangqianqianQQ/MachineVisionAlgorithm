@@ -1,0 +1,20 @@
+input: "data"
+input_shape{dim:128 dim:512 dim:9 dim:9}
+input: "label"
+input_shape{dim:128 dim:1}
+
+layer { name: "fc1" type: "InnerProduct" bottom: "data" top: "fc1" param {lr_mult: 0.01 decay_mult: 1} param {lr_mult: 0.02 decay_mult: 0}
+   inner_product_param{num_output: 2048 weight_filler{type: "gaussian" std: 0.0001} bias_filler{type: "constant" value: 0}}}
+layer {bottom: "fc1" top: "fc1" name: "relu1" type: "ReLU"}
+layer {bottom: "fc1" top: "fc1" name: "drop1" type: "Dropout" dropout_param{dropout_ratio: 0.5}}
+
+layer {name: "fc2_pascal" type: "InnerProduct" bottom: "fc1" top: "fc2_pascal" param {lr_mult: 1 decay_mult: 1} param {lr_mult: 2 decay_mult: 0}
+   inner_product_param{num_output: 21 weight_filler{type: "gaussian" std: 0.03} bias_filler{type: "constant" value: 0}}}
+
+layer { name: "loss" type: "SoftmaxWithLoss" bottom: "fc2_pascal" bottom: "label" top: "loss"}
+layer { name: "accuracy" type: "Accuracy" bottom: "fc2_pascal" bottom: "label" top: "accuracy"}
+
+layer { name: "predictions" type: "Softmax" bottom: "fc2_pascal" top: "predictions" include: { phase: TEST } }
+layer { name: "predictions_silence" type: "Silence" bottom: "predictions" include: { phase: TEST } }
+
+

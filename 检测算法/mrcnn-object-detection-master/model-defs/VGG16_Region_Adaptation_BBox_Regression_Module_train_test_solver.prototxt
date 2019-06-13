@@ -1,0 +1,15 @@
+net: "VGG16_Region_Adaptation_BBox_Regression_Module_train_test.prototxt"
+test_iter: 1
+test_interval: 2000
+momentum: 0.9
+weight_decay: 0.0005
+base_lr: 0.01
+lr_policy: "step"
+gamma: 0.1
+stepsize: 60000
+display: 2000
+max_iter: 180000
+snapshot: 2000
+snapshot_prefix: "model"
+# debug_info: true
+solver_mode: 1

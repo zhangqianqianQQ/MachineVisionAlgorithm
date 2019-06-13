@@ -1,0 +1,29 @@
+input: "data_s9"
+input_dim: 128
+input_dim: 25088
+input_dim: 1
+input_dim: 1
+input: "label"
+input_dim: 128
+input_dim: 1
+input_dim: 1
+input_dim: 1
+
+#--------------------------layer 6------------------------
+layers { name: "fc6_s9" type: INNER_PRODUCT bottom: "data_s9" top: "fc6_s9" blobs_lr: 1.0 blobs_lr: 2.0 inner_product_param{ num_output: 4096}}
+layers { name: "relu6_s9" type: RELU bottom: "fc6_s9" top: "fc6_s9" }
+layers { name: "drop6_s9" type: DROPOUT bottom: "fc6_s9" top: "fc6_s9" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7------------------------
+layers {name: "fc7_s9"   type: INNER_PRODUCT bottom: "fc6_s9" top: "fc7_s9" blobs_lr: 1.0 blobs_lr: 2.0 inner_product_param{ num_output: 4096 }}
+layers {name: "relu7_s9" type: RELU bottom: "fc7_s9" top: "fc7_s9"}
+layers {name: "drop7_s9" type: DROPOUT bottom: "fc7_s9" top: "fc7_s9" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 8------------------------
+layers {name: "fc8_pascal_s9" type: INNER_PRODUCT bottom: "fc7_s9" top: "fc8_pascal_s9" blobs_lr: 1. blobs_lr: 2. weight_decay: 1. weight_decay: 0. 
+inner_product_param{ num_output: 21 weight_filler { type: "gaussian" std: 0.01} bias_filler { type: "constant" value: 1 } }}
+
+#-----------------------output------------------------
+layers { name: "loss" type: SOFTMAX_LOSS bottom: "fc8_pascal_s9" bottom: "label" top: "loss"}
+layers { name: "predictions" type: SOFTMAX bottom: "fc8_pascal_s9" top: "predictions" include: { phase: TEST } }
+layers { name: "accuracy" type: ACCURACY bottom: "fc8_pascal_s9" bottom: "label" top: "accuracy"}

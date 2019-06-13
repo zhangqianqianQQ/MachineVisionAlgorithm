@@ -1,0 +1,132 @@
+input: "data_s1"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s2"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s3"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s4"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s5"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s6"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s7"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s8"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s9"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+input: "data_s10"
+input_shape{dim:128 dim:25088 dim:1 dim:1}
+
+
+#--------------------------layer 6 stream1------------------------
+layer { name: "fc6_s1"   type: "InnerProduct" bottom: "data_s1" top: "fc6_s1" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s1" type: "ReLU" 	      bottom: "fc6_s1"  top: "fc6_s1" }
+layer { name: "drop6_s1" type: "Dropout"      bottom: "fc6_s1"  top: "fc6_s1" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream1------------------------
+layer {name: "fc7_s1"   type: "InnerProduct" bottom: "fc6_s1" top: "fc7_s1" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s1" type: "ReLU" 	     bottom: "fc7_s1" top: "fc7_s1"}
+layer {name: "drop7_s1" type: "Dropout"      bottom: "fc7_s1" top: "fc7_s1" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream2------------------------
+layer { name: "fc6_s2" type: "InnerProduct" bottom: "data_s2" top: "fc6_s2" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s2" type: "ReLU" 	    bottom: "fc6_s2"  top: "fc6_s2" }
+layer { name: "drop6_s2" type: "Dropout"    bottom: "fc6_s2"  top: "fc6_s2" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream2------------------------
+layer {name: "fc7_s2"   type: "InnerProduct" bottom: "fc6_s2" top: "fc7_s2" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s2" type: "ReLU" 	     bottom: "fc7_s2" top: "fc7_s2"}
+layer {name: "drop7_s2" type: "Dropout"      bottom: "fc7_s2" top: "fc7_s2" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream3------------------------
+layer { name: "fc6_s3" type: "InnerProduct" bottom: "data_s3" top: "fc6_s3" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s3" type: "ReLU" 	    bottom: "fc6_s3"  top: "fc6_s3" }
+layer { name: "drop6_s3" type: "Dropout"    bottom: "fc6_s3"  top: "fc6_s3" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream3------------------------
+layer {name: "fc7_s3"   type: "InnerProduct" bottom: "fc6_s3" top: "fc7_s3" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s3" type: "ReLU" 	     bottom: "fc7_s3" top: "fc7_s3"}
+layer {name: "drop7_s3" type: "Dropout"      bottom: "fc7_s3" top: "fc7_s3" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream4------------------------
+layer { name: "fc6_s4" type: "InnerProduct" bottom: "data_s4" top: "fc6_s4" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s4" type: "ReLU" 	    bottom: "fc6_s4"  top: "fc6_s4" }
+layer { name: "drop6_s4" type: "Dropout"    bottom: "fc6_s4"  top: "fc6_s4" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream4------------------------
+layer {name: "fc7_s4"   type: "InnerProduct" bottom: "fc6_s4" top: "fc7_s4" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s4" type: "ReLU" 	     bottom: "fc7_s4" top: "fc7_s4"}
+layer {name: "drop7_s4" type: "Dropout"      bottom: "fc7_s4" top: "fc7_s4" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream5------------------------
+layer { name: "fc6_s5" type: "InnerProduct" bottom: "data_s5" top: "fc6_s5" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s5" type: "ReLU"       bottom: "fc6_s5"  top: "fc6_s5" }
+layer { name: "drop6_s5" type: "Dropout"    bottom: "fc6_s5"  top: "fc6_s5" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream5------------------------
+layer {name: "fc7_s5"   type: "InnerProduct" bottom: "fc6_s5" top: "fc7_s5" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s5" type: "ReLU"         bottom: "fc7_s5" top: "fc7_s5"}
+layer {name: "drop7_s5" type: "Dropout"      bottom: "fc7_s5" top: "fc7_s5" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream6------------------------
+layer { name: "fc6_s6" type: "InnerProduct" bottom: "data_s6" top: "fc6_s6" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s6" type: "ReLU"       bottom: "fc6_s6"  top: "fc6_s6" }
+layer { name: "drop6_s6" type: "Dropout"    bottom: "fc6_s6"  top: "fc6_s6" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream6------------------------
+layer {name: "fc7_s6"   type: "InnerProduct" bottom: "fc6_s6" top: "fc7_s6" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s6" type: "ReLU"         bottom: "fc7_s6" top: "fc7_s6"}
+layer {name: "drop7_s6" type: "Dropout"      bottom: "fc7_s6" top: "fc7_s6" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream7------------------------
+layer { name: "fc6_s7" type: "InnerProduct" bottom: "data_s7" top: "fc6_s7" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s7" type: "ReLU"       bottom: "fc6_s7"  top: "fc6_s7" }
+layer { name: "drop6_s7" type: "Dropout"    bottom: "fc6_s7"  top: "fc6_s7" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream7------------------------
+layer {name: "fc7_s7"   type: "InnerProduct" bottom: "fc6_s7" top: "fc7_s7" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s7" type: "ReLU"         bottom: "fc7_s7" top: "fc7_s7"}
+layer {name: "drop7_s7" type: "Dropout"      bottom: "fc7_s7" top: "fc7_s7" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream8------------------------
+layer { name: "fc6_s8" type: "InnerProduct" bottom: "data_s8" top: "fc6_s8" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s8" type: "ReLU"       bottom: "fc6_s8"  top: "fc6_s8" }
+layer { name: "drop6_s8" type: "Dropout"    bottom: "fc6_s8"  top: "fc6_s8" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream8------------------------
+layer {name: "fc7_s8"   type: "InnerProduct" bottom: "fc6_s8" top: "fc7_s8" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s8" type: "ReLU"         bottom: "fc7_s8" top: "fc7_s8"}
+layer {name: "drop7_s8" type: "Dropout"      bottom: "fc7_s8" top: "fc7_s8" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream9------------------------
+layer { name: "fc6_s9" type: "InnerProduct" bottom: "data_s9" top: "fc6_s9" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s9" type: "ReLU"       bottom: "fc6_s9"  top: "fc6_s9" }
+layer { name: "drop6_s9" type: "Dropout"    bottom: "fc6_s9"  top: "fc6_s9" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream9------------------------
+layer {name: "fc7_s9"   type: "InnerProduct" bottom: "fc6_s9" top: "fc7_s9" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s9" type: "ReLU"         bottom: "fc7_s9" top: "fc7_s9"}
+layer {name: "drop7_s9" type: "Dropout"      bottom: "fc7_s9" top: "fc7_s9" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 6 stream10------------------------
+layer { name: "fc6_s10" type: "InnerProduct" bottom: "data_s10" top: "fc6_s10" inner_product_param{ num_output: 4096}}
+layer { name: "relu6_s10" type: "ReLU"       bottom: "fc6_s10"  top: "fc6_s10" }
+layer { name: "drop6_s10" type: "Dropout"    bottom: "fc6_s10"  top: "fc6_s10" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------layer 7 stream10------------------------
+layer {name: "fc7_s10"   type: "InnerProduct" bottom: "fc6_s10" top: "fc7_s10" inner_product_param{ num_output: 4096 }}
+layer {name: "relu7_s10" type: "ReLU"         bottom: "fc7_s10" top: "fc7_s10"}
+layer {name: "drop7_s10" type: "Dropout"      bottom: "fc7_s10" top: "fc7_s10" dropout_param{ dropout_ratio: 0.5}}
+
+#--------------------------Concat Multistreams------------------------
+layer { name: "fc_feat" type: "Concat" 
+bottom: "fc7_s1" bottom: "fc7_s2" bottom: "fc7_s3" bottom: "fc7_s4" bottom: "fc7_s5" 
+bottom: "fc7_s6" bottom: "fc7_s7" bottom: "fc7_s8" bottom: "fc7_s9" bottom: "fc7_s10"
+top: "fc_feat" concat_param{ concat_dim: 1} }
+
+#--------------------------layer 8------------------------
+layer {name: "pascal_svm" type: "InnerProduct" bottom: "fc_feat" top: "pascal_svm" inner_product_param{num_output: 20}}
+
+

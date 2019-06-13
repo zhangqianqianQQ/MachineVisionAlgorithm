@@ -1,0 +1,7 @@
+data/
+datasets
+bin
+external/caffe
+feat_cache
+models-exps
+*~
