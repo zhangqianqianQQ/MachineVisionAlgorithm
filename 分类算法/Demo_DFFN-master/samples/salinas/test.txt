@@ -1,0 +1,5 @@
+samples/salinas/test1.h5
+samples/salinas/test2.h5
+samples/salinas/test3.h5
+samples/salinas/test4.h5
+samples/salinas/test5.h5

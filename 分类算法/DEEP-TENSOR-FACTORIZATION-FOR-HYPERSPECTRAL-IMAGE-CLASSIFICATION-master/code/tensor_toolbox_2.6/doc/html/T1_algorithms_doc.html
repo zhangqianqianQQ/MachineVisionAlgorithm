@@ -1,0 +1,452 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ALS optimization for CP and Tucker tensor decompositions</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-06"><meta name="DC.source" content="T1_algorithms_doc.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>ALS optimization for CP and Tucker tensor decompositions</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Alternating least squares for PARAFAC/CANDECOMP</a></li><li><a href="#6">Alternating least squares for Tucker model</a></li></ul></div><h2>Alternating least squares for PARAFAC/CANDECOMP<a name="1"></a></h2><p>The function <tt>parafac_als</tt> computes an estimate of the best rank-R PARAFAC model of a tensor X using an alternating least-squares algorithm.  The input X can be a tensor, sptensor, ktensor, or ttensor. The result P is a ktensor.</p><pre class="codeinput">rand(<span class="string">'state'</span>,0);
+X = sptenrand([5 4 3], 10)
+</pre><pre class="codeoutput">X is a sparse tensor of size 5 x 4 x 3 with 10 nonzeros
+	(1,4,1)    0.4966
+	(2,2,3)    0.8998
+	(3,2,3)    0.8216
+	(3,3,1)    0.6449
+	(3,3,3)    0.8180
+	(3,4,1)    0.6602
+	(4,1,2)    0.3420
+	(4,1,3)    0.2897
+	(5,2,2)    0.3412
+	(5,3,2)    0.5341
+</pre><pre class="codeinput">P = parafac_als(X,2)
+</pre><pre class="codeoutput">
+CP_ALS:
+ Iter  1: f = 3.219563e-01 f-delta = 3.2e-01
+ Iter  2: f = 3.645517e-01 f-delta = 4.3e-02
+ Iter  3: f = 3.732887e-01 f-delta = 8.7e-03
+ Iter  4: f = 3.809608e-01 f-delta = 7.7e-03
+ Iter  5: f = 4.021826e-01 f-delta = 2.1e-02
+ Iter  6: f = 4.427524e-01 f-delta = 4.1e-02
+ Iter  7: f = 4.734919e-01 f-delta = 3.1e-02
+ Iter  8: f = 4.848760e-01 f-delta = 1.1e-02
+ Iter  9: f = 4.890031e-01 f-delta = 4.1e-03
+ Iter 10: f = 4.907726e-01 f-delta = 1.8e-03
+ Iter 11: f = 4.916244e-01 f-delta = 8.5e-04
+ Iter 12: f = 4.920996e-01 f-delta = 4.8e-04
+ Iter 13: f = 4.924246e-01 f-delta = 3.2e-04
+ Iter 14: f = 4.926962e-01 f-delta = 2.7e-04
+ Iter 15: f = 4.929575e-01 f-delta = 2.6e-04
+ Iter 16: f = 4.932285e-01 f-delta = 2.7e-04
+ Iter 17: f = 4.935198e-01 f-delta = 2.9e-04
+ Iter 18: f = 4.938385e-01 f-delta = 3.2e-04
+ Iter 19: f = 4.941904e-01 f-delta = 3.5e-04
+ Iter 20: f = 4.945813e-01 f-delta = 3.9e-04
+ Iter 21: f = 4.950178e-01 f-delta = 4.4e-04
+ Iter 22: f = 4.955072e-01 f-delta = 4.9e-04
+ Iter 23: f = 4.960583e-01 f-delta = 5.5e-04
+ Iter 24: f = 4.966814e-01 f-delta = 6.2e-04
+ Iter 25: f = 4.973882e-01 f-delta = 7.1e-04
+ Iter 26: f = 4.981921e-01 f-delta = 8.0e-04
+ Iter 27: f = 4.991075e-01 f-delta = 9.2e-04
+ Iter 28: f = 5.001490e-01 f-delta = 1.0e-03
+ Iter 29: f = 5.013282e-01 f-delta = 1.2e-03
+ Iter 30: f = 5.026502e-01 f-delta = 1.3e-03
+ Iter 31: f = 5.041052e-01 f-delta = 1.5e-03
+ Iter 32: f = 5.056587e-01 f-delta = 1.6e-03
+ Iter 33: f = 5.072418e-01 f-delta = 1.6e-03
+ Iter 34: f = 5.087490e-01 f-delta = 1.5e-03
+ Iter 35: f = 5.100586e-01 f-delta = 1.3e-03
+ Iter 36: f = 5.110745e-01 f-delta = 1.0e-03
+ Iter 37: f = 5.117692e-01 f-delta = 6.9e-04
+ Iter 38: f = 5.121888e-01 f-delta = 4.2e-04
+ Iter 39: f = 5.124165e-01 f-delta = 2.3e-04
+ Iter 40: f = 5.125308e-01 f-delta = 1.1e-04
+ Iter 41: f = 5.125856e-01 f-delta = 5.5e-05
+ Final f = 5.125856e-01 
+P is a ktensor of size 5 x 4 x 3
+	P.lambda = [ 1.3189      1.1109 ]
+	P.U{1} = 
+		    0.0019    0.2743
+		    0.6406   -0.0177
+		    0.7679    0.9615
+		   -0.0000    0.0000
+		   -0.0000   -0.0000
+	P.U{2} = 
+		   -0.0000    0.0000
+		    0.9413   -0.0855
+		    0.2693    0.7083
+		   -0.2036    0.7007
+	P.U{3} = 
+		    0.0402    0.8828
+		   -0.0000   -0.0000
+		    0.9992    0.4698
+</pre><pre class="codeinput">P = parafac_als(X,2,struct(<span class="string">'dimorder'</span>,[3 2 1]))
+</pre><pre class="codeoutput">
+CP_ALS:
+ Iter  1: f = 3.575290e-01 f-delta = 3.6e-01
+ Iter  2: f = 4.968299e-01 f-delta = 1.4e-01
+ Iter  3: f = 5.047740e-01 f-delta = 7.9e-03
+ Iter  4: f = 5.084288e-01 f-delta = 3.7e-03
+ Iter  5: f = 5.103942e-01 f-delta = 2.0e-03
+ Iter  6: f = 5.114388e-01 f-delta = 1.0e-03
+ Iter  7: f = 5.119941e-01 f-delta = 5.6e-04
+ Iter  8: f = 5.122906e-01 f-delta = 3.0e-04
+ Iter  9: f = 5.124494e-01 f-delta = 1.6e-04
+ Iter 10: f = 5.125349e-01 f-delta = 8.5e-05
+ Final f = 5.125349e-01 
+P is a ktensor of size 5 x 4 x 3
+	P.lambda = [ 1.3217      1.0933 ]
+	P.U{1} = 
+		   -0.0029    0.2940
+		    0.6361   -0.0293
+		    0.7716    0.9554
+		    0.0000   -0.0000
+		    0.0000    0.0000
+	P.U{2} = 
+		    0.0000   -0.0000
+		    0.9356   -0.0865
+		    0.3018    0.6913
+		   -0.1832    0.7174
+	P.U{3} = 
+		    0.0483    0.9024
+		    0.0000    0.0000
+		    0.9988    0.4308
+</pre><pre class="codeinput">P = parafac_als(X,2,struct(<span class="string">'dimorder'</span>,[3 2 1],<span class="string">'init'</span>,<span class="string">'nvecs'</span>))
+</pre><pre class="codeoutput">
+CP_ALS:
+ Iter  1: f = 3.767513e-01 f-delta = 3.8e-01
+ Iter  2: f = 4.273501e-01 f-delta = 5.1e-02
+ Iter  3: f = 4.966758e-01 f-delta = 6.9e-02
+ Iter  4: f = 5.061467e-01 f-delta = 9.5e-03
+ Iter  5: f = 5.092466e-01 f-delta = 3.1e-03
+ Iter  6: f = 5.108361e-01 f-delta = 1.6e-03
+ Iter  7: f = 5.116747e-01 f-delta = 8.4e-04
+ Iter  8: f = 5.121203e-01 f-delta = 4.5e-04
+ Iter  9: f = 5.123582e-01 f-delta = 2.4e-04
+ Iter 10: f = 5.124859e-01 f-delta = 1.3e-04
+ Iter 11: f = 5.125545e-01 f-delta = 6.9e-05
+ Final f = 5.125545e-01 
+P is a ktensor of size 5 x 4 x 3
+	P.lambda = [ 1.3212      1.0943 ]
+	P.U{1} = 
+		   -0.0028    0.2928
+		    0.6367   -0.0289
+		    0.7711    0.9557
+		    0.0000   -0.0000
+		    0.0000    0.0000
+	P.U{2} = 
+		    0.0000   -0.0000
+		    0.9360   -0.0856
+		    0.2999    0.6927
+		   -0.1842    0.7161
+	P.U{3} = 
+		    0.0471    0.9012
+		    0.0000    0.0000
+		    0.9989    0.4334
+</pre><pre class="codeinput">U0 = {rand(5,2),rand(4,2),[]}; <span class="comment">%&lt;-- Initial guess for factors of P</span>
+P = parafac_als(X,2,struct(<span class="string">'dimorder'</span>,[3 2 1],<span class="string">'init'</span>,{U0}))
+</pre><pre class="codeoutput">
+CP_ALS:
+ Iter  1: f = 4.361298e-01 f-delta = 4.4e-01
+ Iter  2: f = 5.082769e-01 f-delta = 7.2e-02
+ Iter  3: f = 5.105738e-01 f-delta = 2.3e-03
+ Iter  4: f = 5.116456e-01 f-delta = 1.1e-03
+ Iter  5: f = 5.121929e-01 f-delta = 5.5e-04
+ Iter  6: f = 5.124502e-01 f-delta = 2.6e-04
+ Iter  7: f = 5.125615e-01 f-delta = 1.1e-04
+ Iter  8: f = 5.126068e-01 f-delta = 4.5e-05
+ Final f = 5.126068e-01 
+P is a ktensor of size 5 x 4 x 3
+	P.lambda = [ 1.3217      1.1037 ]
+	P.U{1} = 
+		   -0.0007    0.2835
+		    0.6381   -0.0241
+		    0.7699    0.9587
+		    0.0000   -0.0000
+		    0.0000    0.0000
+	P.U{2} = 
+		    0.0000   -0.0000
+		    0.9388   -0.0899
+		    0.2834    0.7000
+		   -0.1957    0.7085
+	P.U{3} = 
+		    0.0487    0.8893
+		    0.0000    0.0000
+		    0.9988    0.4573
+</pre><h2>Alternating least squares for Tucker model<a name="6"></a></h2><p>The function <tt>tucker_als</tt> computes the best rank(R1,R2,..,Rn) approximation of tensor X, according to the specified dimensions in vector R.  The input X can be a tensor, sptensor, ktensor, or ttensor.  The result returned in T is a ttensor.</p><pre class="codeinput">X = sptenrand([5 4 3], 10)
+</pre><pre class="codeoutput">X is a sparse tensor of size 5 x 4 x 3 with 10 nonzeros
+	(1,3,1)    0.7400
+	(3,1,2)    0.4319
+	(3,2,1)    0.6343
+	(3,3,2)    0.8030
+	(4,1,2)    0.0839
+	(4,2,1)    0.9455
+	(4,4,2)    0.9159
+	(4,4,3)    0.6020
+	(5,3,3)    0.2536
+	(5,4,3)    0.8735
+</pre><pre class="codeinput">T = tucker_als(X,2)        <span class="comment">%&lt;-- best rank(2,2,2) approximation</span>
+</pre><pre class="codeoutput">
+Tucker Alternating Least-Squares:
+ Iter  1: fit = 2.810591e-01 fitdelta = 2.8e-01
+ Iter  2: fit = 3.474829e-01 fitdelta = 6.6e-02
+ Iter  3: fit = 3.628582e-01 fitdelta = 1.5e-02
+ Iter  4: fit = 3.700452e-01 fitdelta = 7.2e-03
+ Iter  5: fit = 3.727897e-01 fitdelta = 2.7e-03
+ Iter  6: fit = 3.737295e-01 fitdelta = 9.4e-04
+ Iter  7: fit = 3.740582e-01 fitdelta = 3.3e-04
+ Iter  8: fit = 3.741751e-01 fitdelta = 1.2e-04
+ Iter  9: fit = 3.742168e-01 fitdelta = 4.2e-05
+T is a ttensor of size 5 x 4 x 3
+	T.core is a tensor of size 2 x 2 x 2
+		T.core(:,:,1) = 
+	    1.1796   -0.0116
+	    0.4219   -0.0175
+		T.core(:,:,2) = 
+	    0.0098    1.0308
+	   -0.0191   -0.4827
+	T.U{1} = 
+		    0.0069   -0.0204
+		   -0.0000    0.0000
+		    0.2980   -0.6769
+		    0.8904   -0.0567
+		    0.3439    0.7336
+	T.U{2} = 
+		    0.0439    0.0018
+		    0.0204    0.9997
+		    0.1129    0.0109
+		    0.9924   -0.0219
+	T.U{3} = 
+		    0.0109    0.9999
+		    0.6015   -0.0016
+		    0.7988   -0.0124
+</pre><pre class="codeinput">T = tucker_als(X,[2 2 1])  <span class="comment">%&lt;-- best rank(2,2,1) approximation</span>
+</pre><pre class="codeoutput">
+Tucker Alternating Least-Squares:
+ Iter  1: fit = 1.812756e-01 fitdelta = 1.8e-01
+ Iter  2: fit = 2.272937e-01 fitdelta = 4.6e-02
+ Iter  3: fit = 2.412379e-01 fitdelta = 1.4e-02
+ Iter  4: fit = 2.436064e-01 fitdelta = 2.4e-03
+ Iter  5: fit = 2.444688e-01 fitdelta = 8.6e-04
+ Iter  6: fit = 2.449320e-01 fitdelta = 4.6e-04
+ Iter  7: fit = 2.451964e-01 fitdelta = 2.6e-04
+ Iter  8: fit = 2.453474e-01 fitdelta = 1.5e-04
+ Iter  9: fit = 2.454331e-01 fitdelta = 8.6e-05
+T is a ttensor of size 5 x 4 x 3
+	T.core is a tensor of size 2 x 2 x 1
+		T.core(:,:,1) = 
+	    1.1975   -0.0004
+	   -0.0001    0.7710
+	T.U{1} = 
+		    0.0024    0.0387
+		         0         0
+		    0.0728    0.9885
+		    0.9137   -0.1170
+		    0.3999    0.0872
+	T.U{2} = 
+		    0.0760    0.4549
+		    0.0347    0.0306
+		    0.0869    0.8828
+		    0.9927   -0.1131
+	T.U{3} = 
+		    0.0343
+		    0.8414
+		    0.5394
+</pre><pre class="codeinput">T = tucker_als(X,2,struct(<span class="string">'dimorder'</span>,[3 2 1]))
+</pre><pre class="codeoutput">
+Tucker Alternating Least-Squares:
+ Iter  1: fit = 3.268831e-01 fitdelta = 3.3e-01
+ Iter  2: fit = 3.604384e-01 fitdelta = 3.4e-02
+ Iter  3: fit = 3.708956e-01 fitdelta = 1.0e-02
+ Iter  4: fit = 3.731357e-01 fitdelta = 2.2e-03
+ Iter  5: fit = 3.738515e-01 fitdelta = 7.2e-04
+ Iter  6: fit = 3.741016e-01 fitdelta = 2.5e-04
+ Iter  7: fit = 3.741906e-01 fitdelta = 8.9e-05
+T is a ttensor of size 5 x 4 x 3
+	T.core is a tensor of size 2 x 2 x 2
+		T.core(:,:,1) = 
+	    1.1797   -0.0054
+	    0.4208   -0.0338
+		T.core(:,:,2) = 
+	    0.0015    1.0306
+	   -0.0375   -0.4818
+	T.U{1} = 
+		    0.0069   -0.0208
+		    0.0000   -0.0000
+		    0.2981   -0.6769
+		    0.8904   -0.0566
+		    0.3439    0.7336
+	T.U{2} = 
+		    0.0440    0.0028
+		    0.0323    0.9992
+		    0.1134    0.0181
+		    0.9921   -0.0347
+	T.U{3} = 
+		    0.0298    0.9994
+		    0.6017   -0.0051
+		    0.7982   -0.0335
+</pre><pre class="codeinput">T = tucker_als(X,2,struct(<span class="string">'dimorder'</span>,[3 2 1],<span class="string">'init'</span>,<span class="string">'eigs'</span>))
+</pre><pre class="codeoutput">  Computing 2 leading e-vectors for factor 2.
+  Computing 2 leading e-vectors for factor 1.
+
+Tucker Alternating Least-Squares:
+ Iter  1: fit = 3.726300e-01 fitdelta = 3.7e-01
+ Iter  2: fit = 3.741337e-01 fitdelta = 1.5e-03
+ Iter  3: fit = 3.742335e-01 fitdelta = 1.0e-04
+T is a ttensor of size 5 x 4 x 3
+	T.core is a tensor of size 2 x 2 x 2
+		T.core(:,:,1) = 
+	    1.1798   -0.0000
+	    0.4220   -0.0000
+		T.core(:,:,2) = 
+	    0.0000    1.0311
+	   -0.0000   -0.4828
+	T.U{1} = 
+		    0.0000   -0.0000
+		    0.0000   -0.0000
+		    0.2970   -0.6795
+		    0.8913   -0.0548
+		    0.3426    0.7316
+	T.U{2} = 
+		    0.0427         0
+		    0.0000    1.0000
+		    0.1082    0.0000
+		    0.9932   -0.0000
+	T.U{3} = 
+		    0.0000    1.0000
+		    0.6045         0
+		    0.7966   -0.0000
+</pre><pre class="codeinput">U0 = {rand(5,2),rand(4,2),[]}; <span class="comment">%&lt;-- Initial guess for factors of T</span>
+T = tucker_als(X,2,struct(<span class="string">'dimorder'</span>,[3 2 1],<span class="string">'init'</span>,{U0}))
+</pre><pre class="codeoutput">
+Tucker Alternating Least-Squares:
+ Iter  1: fit = 3.647914e-01 fitdelta = 3.6e-01
+ Iter  2: fit = 3.722524e-01 fitdelta = 7.5e-03
+ Iter  3: fit = 3.735753e-01 fitdelta = 1.3e-03
+ Iter  4: fit = 3.740042e-01 fitdelta = 4.3e-04
+ Iter  5: fit = 3.741559e-01 fitdelta = 1.5e-04
+ Iter  6: fit = 3.742100e-01 fitdelta = 5.4e-05
+T is a ttensor of size 5 x 4 x 3
+	T.core is a tensor of size 2 x 2 x 2
+		T.core(:,:,1) = 
+	    1.1797   -0.0042
+	    0.4214   -0.0265
+		T.core(:,:,2) = 
+	    0.0012    1.0308
+	   -0.0293   -0.4823
+	T.U{1} = 
+		    0.0054   -0.0162
+		    0.0000         0
+		    0.2980   -0.6769
+		    0.8904   -0.0567
+		    0.3439    0.7337
+	T.U{2} = 
+		    0.0440    0.0022
+		    0.0253    0.9995
+		    0.1131    0.0141
+		    0.9923   -0.0272
+	T.U{3} = 
+		    0.0233    0.9997
+		    0.6016   -0.0040
+		    0.7985   -0.0262
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% ALS optimization for CP and Tucker tensor decompositions
+
+%% Alternating least squares for PARAFAC/CANDECOMP
+% The function |parafac_als| computes an estimate of the best rank-R
+% PARAFAC model of a tensor X using an alternating least-squares
+% algorithm.  The input X can be a tensor, sptensor, ktensor, or
+% ttensor. The result P is a ktensor.
+rand('state',0);
+X = sptenrand([5 4 3], 10)
+%%
+P = parafac_als(X,2)
+%%
+P = parafac_als(X,2,struct('dimorder',[3 2 1]))
+%%
+P = parafac_als(X,2,struct('dimorder',[3 2 1],'init','nvecs'))
+%%
+U0 = {rand(5,2),rand(4,2),[]}; %<REPLACE_WITH_DASH_DASH Initial guess for factors of P
+P = parafac_als(X,2,struct('dimorder',[3 2 1],'init',{U0}))
+%% Alternating least squares for Tucker model 
+% The function |tucker_als| computes the best rank(R1,R2,..,Rn)
+% approximation of tensor X, according to the specified dimensions in
+% vector R.  The input X can be a tensor, sptensor, ktensor, or
+% ttensor.  The result returned in T is a ttensor.
+X = sptenrand([5 4 3], 10)
+%%
+T = tucker_als(X,2)        %<REPLACE_WITH_DASH_DASH best rank(2,2,2) approximation 
+%%
+T = tucker_als(X,[2 2 1])  %<REPLACE_WITH_DASH_DASH best rank(2,2,1) approximation 
+%%
+T = tucker_als(X,2,struct('dimorder',[3 2 1]))
+%%
+T = tucker_als(X,2,struct('dimorder',[3 2 1],'init','eigs'))
+%%
+U0 = {rand(5,2),rand(4,2),[]}; %<REPLACE_WITH_DASH_DASH Initial guess for factors of T
+T = tucker_als(X,2,struct('dimorder',[3 2 1],'init',{U0}))
+
+##### SOURCE END #####
+--></body></html>

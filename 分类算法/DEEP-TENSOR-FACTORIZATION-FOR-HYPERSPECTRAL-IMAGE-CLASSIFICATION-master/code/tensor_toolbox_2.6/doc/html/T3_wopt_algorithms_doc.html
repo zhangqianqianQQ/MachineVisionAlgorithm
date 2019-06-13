@@ -1,0 +1,316 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Weighted optimization for CP tensor decomposition with incomplete data</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-06"><meta name="DC.source" content="T3_wopt_algorithms_doc.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Weighted optimization for CP tensor decomposition with incomplete data</h1><!--introduction--><p>We explain how to use <tt>cp_wopt</tt> with the POBLANO toolbox.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Create an example problem with missing data.</a></li><li><a href="#2">Create initial guess using 'nvecs'</a></li><li><a href="#3">Set up the optimization parameters</a></li><li><a href="#4">Call the <tt>cp_wopt</tt> method</a></li><li><a href="#5">Check the output</a></li><li><a href="#6">Evaluate the output</a></li><li><a href="#7">Create a SPARSE example problem with missing data.</a></li><li><a href="#8">Create initial guess using 'nvecs'</a></li><li><a href="#9">Set up the optimization parameters</a></li><li><a href="#10">Call the <tt>cp_wopt</tt> method</a></li><li><a href="#11">Check the output</a></li><li><a href="#12">Evaluate the output</a></li></ul></div><h2>Create an example problem with missing data.<a name="1"></a></h2><p>Here we have 25% missing data and 10% noise.</p><pre class="codeinput">R = 2;
+info = create_problem(<span class="string">'Size'</span>, [15 10 5], <span class="string">'Num_Factors'</span>, R, <span class="keyword">...</span>
+    <span class="string">'M'</span>, 0.25, <span class="string">'Noise'</span>, 0.10);
+X = info.Data;
+P = info.Pattern;
+M_true= info.Soln;
+</pre><h2>Create initial guess using 'nvecs'<a name="2"></a></h2><pre class="codeinput">M_init = create_guess(<span class="string">'Data'</span>, X, <span class="string">'Num_Factors'</span>, R, <span class="keyword">...</span>
+    <span class="string">'Factor_Generator'</span>, <span class="string">'nvecs'</span>);
+</pre><h2>Set up the optimization parameters<a name="3"></a></h2><p>It's genearlly a good idea to consider the parameters of the optimization method. The default options may be either too stringent or not stringent enough. The most important options to consider are detailed here.</p><pre class="codeinput"><span class="comment">% Get the defaults</span>
+ncg_opts = ncg(<span class="string">'defaults'</span>);
+<span class="comment">% Tighten the stop tolerance (norm of gradient). This is often too large.</span>
+ncg_opts.StopTol = 1.0e-6;
+<span class="comment">% Tighten relative change in function value tolearnce. This is often too large.</span>
+ncg_opts.RelFuncTol = 1.0e-20;
+<span class="comment">% Increase the number of iterations.</span>
+ncg_opts.MaxIters = 10^4;
+<span class="comment">% Only display every 10th iteration</span>
+ncg_opts.DisplayIters = 10;
+<span class="comment">% Display the final set of options</span>
+ncg_opts
+</pre><pre class="codeoutput">ncg_opts = 
+                   Display: 'iter'
+              DisplayIters: 10
+           LineSearch_ftol: 1.0000e-04
+           LineSearch_gtol: 0.0100
+    LineSearch_initialstep: 1
+         LineSearch_maxfev: 20
+         LineSearch_method: 'more-thuente'
+         LineSearch_stpmax: 1.0000e+15
+         LineSearch_stpmin: 1.0000e-15
+           LineSearch_xtol: 1.0000e-15
+              MaxFuncEvals: 10000
+                  MaxIters: 10000
+                RelFuncTol: 1.0000e-20
+              RestartIters: 20
+                 RestartNW: 0
+              RestartNWTol: 0.1000
+                   StopTol: 1.0000e-06
+                 TraceFunc: 0
+            TraceFuncEvals: 0
+                 TraceGrad: 0
+             TraceGradNorm: 0
+              TraceRelFunc: 0
+                    TraceX: 0
+                    Update: 'PR'
+</pre><h2>Call the <tt>cp_wopt</tt> method<a name="4"></a></h2><p>Here is an example call to the cp_opt method. By default, each iteration prints the least squares fit function value (being minimized) and the norm of the gradient. The meaning of any line search warnings can be checked via <a href="matlab:doc('cvsrch')">doc cvsrch</a>.</p><pre class="codeinput">[M,~,output] = cp_wopt(X, P, R, <span class="string">'init'</span>, M_init, <span class="keyword">...</span>
+    <span class="string">'alg'</span>, <span class="string">'ncg'</span>, <span class="string">'alg_options'</span>, ncg_opts);
+</pre><pre class="codeoutput"> Iter  FuncEvals       F(X)          ||G(X)||/N        
+------ --------- ---------------- ----------------
+     0         1     185.00205958       0.48027652
+    10        47       1.68251600       0.03869586
+    20        74       1.51902470       0.00179193
+    30        95       1.51868289       0.00009479
+    40       115       1.51868158       0.00000174
+    45       125       1.51868158       0.00000050
+</pre><h2>Check the output<a name="5"></a></h2><p>It's important to check the output of the optimization method. In particular, it's worthwhile to check the exit flag. A zero (0) indicates successful termination with the gradient smaller than the specified StopTol, and a three (3) indicates a successful termination where the change in function value is less than RelFuncTol. The meaning of any other flags can be checked via <a href="matlab:doc('poblano_params')">doc poblano_params</a>.</p><pre class="codeinput">exitflag = output.ExitFlag
+</pre><pre class="codeoutput">exitflag =
+     0
+</pre><h2>Evaluate the output<a name="6"></a></h2><p>We can "score" the similarity of the model computed by CP and compare that with the truth. The <tt>score</tt> function on ktensor's gives a score in [0,1]  with 1 indicating a perfect match. Because we have noise, we do not expect the fit to be perfect. See <a href="matlab:doc('ktensor/score')">doc score</a> for more details.</p><pre class="codeinput">scr = score(M,M_true)
+</pre><pre class="codeoutput">scr =
+    0.9849
+</pre><h2>Create a SPARSE example problem with missing data.<a name="7"></a></h2><p>Here we have 95% missing data and 10% noise.</p><pre class="codeinput">R = 2;
+info = create_problem(<span class="string">'Size'</span>, [150 100 50], <span class="string">'Num_Factors'</span>, R, <span class="keyword">...</span>
+    <span class="string">'M'</span>, 0.95, <span class="string">'Sparse_M'</span>, true, <span class="string">'Noise'</span>, 0.10);
+X = info.Data;
+P = info.Pattern;
+M_true= info.Soln;
+</pre><h2>Create initial guess using 'nvecs'<a name="8"></a></h2><pre class="codeinput">M_init = create_guess(<span class="string">'Data'</span>, X, <span class="string">'Num_Factors'</span>, R, <span class="keyword">...</span>
+    <span class="string">'Factor_Generator'</span>, <span class="string">'nvecs'</span>);
+</pre><h2>Set up the optimization parameters<a name="9"></a></h2><p>It's genearlly a good idea to consider the parameters of the optimization method. The default options may be either too stringent or not stringent enough. The most important options to consider are detailed here.</p><pre class="codeinput"><span class="comment">% Get the defaults</span>
+ncg_opts = ncg(<span class="string">'defaults'</span>);
+<span class="comment">% Tighten the stop tolerance (norm of gradient). This is often too large.</span>
+ncg_opts.StopTol = 1.0e-6;
+<span class="comment">% Tighten relative change in function value tolearnce. This is often too large.</span>
+ncg_opts.RelFuncTol = 1.0e-20;
+<span class="comment">% Increase the number of iterations.</span>
+ncg_opts.MaxIters = 10^4;
+<span class="comment">% Only display every 10th iteration</span>
+ncg_opts.DisplayIters = 10;
+<span class="comment">% Display the final set of options</span>
+ncg_opts
+</pre><pre class="codeoutput">ncg_opts = 
+                   Display: 'iter'
+              DisplayIters: 10
+           LineSearch_ftol: 1.0000e-04
+           LineSearch_gtol: 0.0100
+    LineSearch_initialstep: 1
+         LineSearch_maxfev: 20
+         LineSearch_method: 'more-thuente'
+         LineSearch_stpmax: 1.0000e+15
+         LineSearch_stpmin: 1.0000e-15
+           LineSearch_xtol: 1.0000e-15
+              MaxFuncEvals: 10000
+                  MaxIters: 10000
+                RelFuncTol: 1.0000e-20
+              RestartIters: 20
+                 RestartNW: 0
+              RestartNWTol: 0.1000
+                   StopTol: 1.0000e-06
+                 TraceFunc: 0
+            TraceFuncEvals: 0
+                 TraceGrad: 0
+             TraceGradNorm: 0
+              TraceRelFunc: 0
+                    TraceX: 0
+                    Update: 'PR'
+</pre><h2>Call the <tt>cp_wopt</tt> method<a name="10"></a></h2><p>Here is an example call to the cp_opt method. By default, each iteration prints the least squares fit function value (being minimized) and the norm of the gradient. The meaning of any line search warnings can be checked via <a href="matlab:doc('cvsrch')">doc cvsrch</a>.</p><pre class="codeinput">[M,~,output] = cp_wopt(X, P, R, <span class="string">'init'</span>, M_init, <span class="keyword">...</span>
+    <span class="string">'alg'</span>, <span class="string">'ncg'</span>, <span class="string">'alg_options'</span>, ncg_opts);
+</pre><pre class="codeoutput"> Iter  FuncEvals       F(X)          ||G(X)||/N        
+------ --------- ---------------- ----------------
+     0         1    1170.62424530       0.02422437
+    10        52     190.11900267       0.00893357
+    20        96     162.40135695       0.10203161
+    30       137      11.42949623       0.00295760
+    40       160      11.38681461       0.00002031
+    48       176      11.38681239       0.00000096
+</pre><h2>Check the output<a name="11"></a></h2><p>It's important to check the output of the optimization method. In particular, it's worthwhile to check the exit flag. A zero (0) indicates successful termination with the gradient smaller than the specified StopTol, and a three (3) indicates a successful termination where the change in function value is less than RelFuncTol. The meaning of any other flags can be checked via <a href="matlab:doc('poblano_params')">doc poblano_params</a>.</p><pre class="codeinput">exitflag = output.ExitFlag
+</pre><pre class="codeoutput">exitflag =
+     0
+</pre><h2>Evaluate the output<a name="12"></a></h2><p>We can "score" the similarity of the model computed by CP and compare that with the truth. The <tt>score</tt> function on ktensor's gives a score in [0,1]  with 1 indicating a perfect match. Because we have noise, we do not expect the fit to be perfect. See <a href="matlab:doc('ktensor/score')">doc score</a> for more details.</p><pre class="codeinput">scr = score(M,M_true)
+</pre><pre class="codeoutput">scr =
+    0.9977
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Weighted optimization for CP tensor decomposition with incomplete data
+% We explain how to use |cp_wopt| with the POBLANO toolbox. 
+
+%% Create an example problem with missing data. 
+% Here we have 25% missing data and 10% noise.   
+R = 2;
+info = create_problem('Size', [15 10 5], 'Num_Factors', R, ...
+    'M', 0.25, 'Noise', 0.10);
+X = info.Data;
+P = info.Pattern;
+M_true= info.Soln;
+
+%% Create initial guess using 'nvecs'
+M_init = create_guess('Data', X, 'Num_Factors', R, ...
+    'Factor_Generator', 'nvecs');
+
+
+%% Set up the optimization parameters
+% It's genearlly a good idea to consider the parameters of the optimization
+% method. The default options may be either too stringent or not stringent
+% enough. The most important options to consider are detailed here. 
+
+% Get the defaults
+ncg_opts = ncg('defaults');
+% Tighten the stop tolerance (norm of gradient). This is often too large.
+ncg_opts.StopTol = 1.0e-6;
+% Tighten relative change in function value tolearnce. This is often too large.
+ncg_opts.RelFuncTol = 1.0e-20;
+% Increase the number of iterations. 
+ncg_opts.MaxIters = 10^4;
+% Only display every 10th iteration
+ncg_opts.DisplayIters = 10;
+% Display the final set of options
+ncg_opts
+
+%% Call the |cp_wopt| method
+% Here is an example call to the cp_opt method. By default, each iteration
+% prints the least squares fit function value (being minimized) and the
+% norm of the gradient. The meaning of any line search warnings
+% can be checked via <matlab:doc('cvsrch') doc cvsrch>.
+[M,~,output] = cp_wopt(X, P, R, 'init', M_init, ...
+    'alg', 'ncg', 'alg_options', ncg_opts);
+
+%% Check the output
+% It's important to check the output of the optimization method. In
+% particular, it's worthwhile to check the exit flag. 
+% A zero (0) indicates successful termination with the gradient smaller
+% than the specified StopTol, and a three (3) indicates a successful
+% termination where the change in function value is less than RelFuncTol.
+% The meaning of any other flags can be checked via 
+% <matlab:doc('poblano_params') doc poblano_params>. 
+exitflag = output.ExitFlag
+
+
+%% Evaluate the output
+% We can "score" the similarity of the model computed by CP and compare
+% that with the truth. The |score| function on ktensor's gives a score in
+% [0,1]  with 1 indicating a perfect match. Because we have noise, we do
+% not expect the fit to be perfect. See <matlab:doc('ktensor/score') doc
+% score> for more details.
+scr = score(M,M_true)
+
+%% Create a SPARSE example problem with missing data. 
+% Here we have 95% missing data and 10% noise.   
+R = 2;
+info = create_problem('Size', [150 100 50], 'Num_Factors', R, ...
+    'M', 0.95, 'Sparse_M', true, 'Noise', 0.10);
+X = info.Data;
+P = info.Pattern;
+M_true= info.Soln;
+
+%% Create initial guess using 'nvecs'
+M_init = create_guess('Data', X, 'Num_Factors', R, ...
+    'Factor_Generator', 'nvecs');
+
+
+%% Set up the optimization parameters
+% It's genearlly a good idea to consider the parameters of the optimization
+% method. The default options may be either too stringent or not stringent
+% enough. The most important options to consider are detailed here. 
+
+% Get the defaults
+ncg_opts = ncg('defaults');
+% Tighten the stop tolerance (norm of gradient). This is often too large.
+ncg_opts.StopTol = 1.0e-6;
+% Tighten relative change in function value tolearnce. This is often too large.
+ncg_opts.RelFuncTol = 1.0e-20;
+% Increase the number of iterations. 
+ncg_opts.MaxIters = 10^4;
+% Only display every 10th iteration
+ncg_opts.DisplayIters = 10;
+% Display the final set of options
+ncg_opts
+
+%% Call the |cp_wopt| method
+% Here is an example call to the cp_opt method. By default, each iteration
+% prints the least squares fit function value (being minimized) and the
+% norm of the gradient. The meaning of any line search warnings
+% can be checked via <matlab:doc('cvsrch') doc cvsrch>.
+[M,~,output] = cp_wopt(X, P, R, 'init', M_init, ...
+    'alg', 'ncg', 'alg_options', ncg_opts);
+
+%% Check the output
+% It's important to check the output of the optimization method. In
+% particular, it's worthwhile to check the exit flag. 
+% A zero (0) indicates successful termination with the gradient smaller
+% than the specified StopTol, and a three (3) indicates a successful
+% termination where the change in function value is less than RelFuncTol.
+% The meaning of any other flags can be checked via 
+% <matlab:doc('poblano_params') doc poblano_params>. 
+exitflag = output.ExitFlag
+
+
+%% Evaluate the output
+% We can "score" the similarity of the model computed by CP and compare
+% that with the truth. The |score| function on ktensor's gives a score in
+% [0,1]  with 1 indicating a perfect match. Because we have noise, we do
+% not expect the fit to be perfect. See <matlab:doc('ktensor/score') doc
+% score> for more details.
+scr = score(M,M_true)
+
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,249 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Generating the leading mode-n vectors</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-02-06"><meta name="DC.source" content="N_nvecs_doc.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Generating the leading mode-n vectors</h1><!--introduction--><p>The leading mode-n vectors are those vectors that span the subspace of the mode-n fibers. In other words, the left singular vectors of the n-mode matricization of X.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Using nvecs to calculate the leading mode-n vectors</a></li><li><a href="#11">Using nvecs for the HOSVD</a></li></ul></div><h2>Using nvecs to calculate the leading mode-n vectors<a name="1"></a></h2><p>The <tt>nvecs</tt> command efficient computes the leading n-mode vectors.</p><pre class="codeinput">rand(<span class="string">'state'</span>,0);
+X = sptenrand([4,3,2],6) <span class="comment">%&lt;-- A sparse tensor</span>
+</pre><pre class="codeoutput">X is a sparse tensor of size 4 x 3 x 2 with 6 nonzeros
+	(1,2,1)    0.8385
+	(2,3,1)    0.5681
+	(3,2,1)    0.3704
+	(3,3,1)    0.7027
+	(4,2,2)    0.5466
+	(4,3,2)    0.4449
+</pre><pre class="codeinput">nvecs(X,1,2) <span class="comment">%&lt;-- The 2 leading mode-1 vectors</span>
+</pre><pre class="codeoutput">ans =
+    0.5810    0.7687
+    0.3761   -0.5451
+    0.7219   -0.3347
+         0   -0.0000
+</pre><pre class="codeinput">nvecs(X,1,3) <span class="comment">% &lt;-- The 3 leading mode-1 vectors</span>
+</pre><pre class="codeoutput">ans =
+    0.5810    0.7687   -0.0000
+    0.3761   -0.5451   -0.0000
+    0.7219   -0.3347    0.0000
+   -0.0000    0.0000    1.0000
+</pre><pre class="codeinput">nvecs(full(X),1,3) <span class="comment">%&lt;-- The same thing for a dense tensor</span>
+</pre><pre class="codeoutput">ans =
+    0.5810    0.7687    0.0000
+    0.3761   -0.5451   -0.0000
+    0.7219   -0.3347    0.0000
+   -0.0000   -0.0000    1.0000
+</pre><pre class="codeinput">X = ktensor({rand(3,2),rand(3,2),rand(2,2)}) <span class="comment">%&lt;-- A random ktensor</span>
+</pre><pre class="codeoutput">X is a ktensor of size 3 x 3 x 2
+	X.lambda = [ 1  1 ]
+	X.U{1} = 
+		    0.1365    0.1991
+		    0.0118    0.2987
+		    0.8939    0.6614
+	X.U{2} = 
+		    0.2844    0.9883
+		    0.4692    0.5828
+		    0.0648    0.4235
+	X.U{3} = 
+		    0.5155    0.4329
+		    0.3340    0.2259
+</pre><pre class="codeinput">nvecs(X,2,1) <span class="comment">%&lt;-- The 1 leading mode-2 vector</span>
+</pre><pre class="codeoutput">ans =
+    0.7147
+    0.6480
+    0.2633
+</pre><pre class="codeinput">nvecs(full(X),2,1) <span class="comment">%&lt;-- Same thing for a dense tensor</span>
+</pre><pre class="codeoutput">ans =
+    0.7147
+    0.6480
+    0.2633
+</pre><pre class="codeinput">X = ttensor(tenrand([2,2,2,2]),{rand(3,2),rand(3,2),rand(2,2),rand(2,2)}); <span class="comment">%&lt;-- A random ttensor</span>
+</pre><pre class="codeinput">nvecs(X,4,2) <span class="comment">%&lt;-- The 1 leading mode-2 vector</span>
+</pre><pre class="codeoutput">ans =
+    0.6725    0.7401
+    0.7401   -0.6725
+</pre><pre class="codeinput">nvecs(full(X),4,2) <span class="comment">%&lt;-- Same thing for a dense tensor</span>
+</pre><pre class="codeoutput">ans =
+    0.6725    0.7401
+    0.7401   -0.6725
+</pre><h2>Using nvecs for the HOSVD<a name="11"></a></h2><pre class="codeinput">X = tenrand([4 3 2]) <span class="comment">%&lt;-- Generate data</span>
+</pre><pre class="codeoutput">X is a tensor of size 4 x 3 x 2
+	X(:,:,1) = 
+	    0.0272    0.6831    0.6085
+	    0.3127    0.0928    0.0158
+	    0.0129    0.0353    0.0164
+	    0.3840    0.6124    0.1901
+	X(:,:,2) = 
+	    0.5869    0.7176    0.4418
+	    0.0576    0.6927    0.3533
+	    0.3676    0.0841    0.1536
+	    0.6315    0.4544    0.6756
+</pre><pre class="codeinput">U1 = nvecs(X,1,4); <span class="comment">%&lt;-- Mode 1</span>
+U2 = nvecs(X,2,3); <span class="comment">%&lt;-- Mode 2</span>
+U3 = nvecs(X,3,2); <span class="comment">%&lt;-- Mode 3</span>
+S = ttm(X,{pinv(U1),pinv(U2),pinv(U3)}); <span class="comment">%&lt;-- Core</span>
+Y = ttensor(S,{U1,U2,U3}) <span class="comment">%&lt;-- HOSVD of X</span>
+</pre><pre class="codeoutput">Y is a ttensor of size 4 x 3 x 2
+	Y.core is a tensor of size 4 x 3 x 2
+		Y.core(:,:,1) = 
+	    1.9279    0.0684   -0.0009
+	    0.0669   -0.1193   -0.1012
+	   -0.0229    0.3216    0.0848
+	    0.0013    0.0852   -0.0282
+		Y.core(:,:,2) = 
+	    0.0560   -0.2314   -0.0911
+	   -0.2194    0.5059   -0.0932
+	   -0.0393    0.0200   -0.3189
+	   -0.1786   -0.0452    0.0974
+	Y.U{1} = 
+		    0.6809   -0.4132   -0.6031    0.0424
+		    0.3358    0.8973   -0.2230    0.1799
+		    0.1548   -0.1551    0.3452    0.9126
+		    0.6321    0.0064    0.6836   -0.3647
+	Y.U{2} = 
+		    0.4538    0.8780   -0.1521
+		    0.7111   -0.4597   -0.5319
+		    0.5370   -0.1332    0.8330
+	Y.U{3} = 
+		    0.5412    0.8409
+		    0.8409   -0.5412
+</pre><pre class="codeinput">norm(full(Y) - X) <span class="comment">%&lt;-- Reproduces the same result.</span>
+</pre><pre class="codeoutput">ans =
+   5.9501e-16
+</pre><pre class="codeinput">U1 = nvecs(X,1,2); <span class="comment">%&lt;-- Mode 1</span>
+U2 = nvecs(X,2,2); <span class="comment">%&lt;-- Mode 2</span>
+U3 = nvecs(X,3,2); <span class="comment">%&lt;-- Mode 3</span>
+S = ttm(X,{pinv(U1),pinv(U2),pinv(U3)}); <span class="comment">%&lt;-- Core</span>
+Y = ttensor(S,{U1,U2,U3}) <span class="comment">%&lt;-- Rank-(2,2,2) HOSVD approximation of X</span>
+</pre><pre class="codeoutput">Y is a ttensor of size 4 x 3 x 2
+	Y.core is a tensor of size 2 x 2 x 2
+		Y.core(:,:,1) = 
+	    1.9279    0.0684
+	    0.0669   -0.1193
+		Y.core(:,:,2) = 
+	    0.0560   -0.2314
+	   -0.2194    0.5059
+	Y.U{1} = 
+		    0.6809   -0.4132
+		    0.3358    0.8973
+		    0.1548   -0.1551
+		    0.6321    0.0064
+	Y.U{2} = 
+		    0.4538    0.8780
+		    0.7111   -0.4597
+		    0.5370   -0.1332
+	Y.U{3} = 
+		    0.5412    0.8409
+		    0.8409   -0.5412
+</pre><pre class="codeinput">100*(1-norm(full(Y)-X)/norm(X)) <span class="comment">%&lt;-- Percentage explained by approximation</span>
+</pre><pre class="codeoutput">ans =
+   74.1571
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Generating the leading mode-n vectors
+% The leading mode-n vectors are those vectors that span the subspace of
+% the mode-n fibers. In other words, the left singular vectors of the
+% n-mode matricization of X. 
+%% Using nvecs to calculate the leading mode-n vectors
+% The |nvecs| command efficient computes the leading n-mode vectors.
+rand('state',0);
+X = sptenrand([4,3,2],6) %<REPLACE_WITH_DASH_DASH A sparse tensor
+%%
+nvecs(X,1,2) %<REPLACE_WITH_DASH_DASH The 2 leading mode-1 vectors
+%% 
+nvecs(X,1,3) % <REPLACE_WITH_DASH_DASH The 3 leading mode-1 vectors
+%%
+nvecs(full(X),1,3) %<REPLACE_WITH_DASH_DASH The same thing for a dense tensor
+%%
+X = ktensor({rand(3,2),rand(3,2),rand(2,2)}) %<REPLACE_WITH_DASH_DASH A random ktensor
+%%
+nvecs(X,2,1) %<REPLACE_WITH_DASH_DASH The 1 leading mode-2 vector
+%%
+nvecs(full(X),2,1) %<REPLACE_WITH_DASH_DASH Same thing for a dense tensor
+%%
+X = ttensor(tenrand([2,2,2,2]),{rand(3,2),rand(3,2),rand(2,2),rand(2,2)}); %<REPLACE_WITH_DASH_DASH A random ttensor
+%%
+nvecs(X,4,2) %<REPLACE_WITH_DASH_DASH The 1 leading mode-2 vector
+%%
+nvecs(full(X),4,2) %<REPLACE_WITH_DASH_DASH Same thing for a dense tensor
+%% Using nvecs for the HOSVD
+X = tenrand([4 3 2]) %<REPLACE_WITH_DASH_DASH Generate data
+%% 
+U1 = nvecs(X,1,4); %<REPLACE_WITH_DASH_DASH Mode 1
+U2 = nvecs(X,2,3); %<REPLACE_WITH_DASH_DASH Mode 2
+U3 = nvecs(X,3,2); %<REPLACE_WITH_DASH_DASH Mode 3
+S = ttm(X,{pinv(U1),pinv(U2),pinv(U3)}); %<REPLACE_WITH_DASH_DASH Core
+Y = ttensor(S,{U1,U2,U3}) %<REPLACE_WITH_DASH_DASH HOSVD of X
+%%
+norm(full(Y) - X) %<REPLACE_WITH_DASH_DASH Reproduces the same result.
+
+%% 
+U1 = nvecs(X,1,2); %<REPLACE_WITH_DASH_DASH Mode 1
+U2 = nvecs(X,2,2); %<REPLACE_WITH_DASH_DASH Mode 2
+U3 = nvecs(X,3,2); %<REPLACE_WITH_DASH_DASH Mode 3
+S = ttm(X,{pinv(U1),pinv(U2),pinv(U3)}); %<REPLACE_WITH_DASH_DASH Core
+Y = ttensor(S,{U1,U2,U3}) %<REPLACE_WITH_DASH_DASH Rank-(2,2,2) HOSVD approximation of X
+%%
+100*(1-norm(full(Y)-X)/norm(X)) %<REPLACE_WITH_DASH_DASH Percentage explained by approximation
+##### SOURCE END #####
+--></body></html>
