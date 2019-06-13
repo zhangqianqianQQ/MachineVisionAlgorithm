@@ -1,0 +1,60 @@
+PPB_NAKAGAMI/NLSAR: Probabilistic Patch-Based filter for Nakagami-Rayleigh noise
+================================================================================
+
+Revision:	        26 May 2012
+Author:                 Charles Deledalle
+Web page:               http://www.ceremade.dauphine.fr/~deledall/ppb.php
+
+This MATLAB software implements the denoising algorithm (the Probabilistic
+Patch-Based filter) for images damaged by multiplicative Nakagami-Rayleigh
+noise as presented in: "Iterative Weighted Maximum Likelihood Denoising
+with Probabilistic Patch-Based Weights", C-A. Deledalle, L. Denis and
+F. Tupin, IEEE Trans. on Image Processing, vol. 18, no. 12, pp. 2661-2672,
+December 2009. It also corresponds to the NL-SAR filter: "A non-local
+approach for SAR and interferometric SAR denoising", C-A. Deledalle,
+Florence Tupin and Loïc Denis, in the proceedings of IGARSS, Honolulu,
+Hawaii, USA, July 2010.
+
+This software is free and should be used only for nonprofit purposes. Any
+unauthorized use of this software for industrial or profit-oriented
+activities is expressively prohibited.
+
+The program has been written for MATLAB with the ImageProcessing Toolbox
+for Linux 32-bit or 64-bit and Windows 32-bit or 64-bit.
+
+The following program files are present:
+
+- ppbNakagami.mex*:
+  A Mex function wich performs one iteration of the denoising algorithm.
+
+- ppb_nakagami.m:
+  A matlab function wich calls the ppbNakagami.mexglx program to perform the
+  iterative denoising. This function realize also a wrapping of the
+  arguments which can be then given as described in our paper. Please refer
+  to our paper for a more detailed description of the arguments. Note that
+  this function ables to treat large images by preserving memory thanks to
+  a block processing on 1024x1024 subimages.
+
+- example_nakagami.m:
+  An example of how to use the PPB filter. It denoises the Lena image
+  (lena.png) corrupted by multiplicative Nakagami-Rayleigh noise with
+  equivalent number of look 3. The PPB filter is used with 2 sets of
+  parameters. One applies the non-iterative PPB filter, the other one
+  performs 4 iteration of the PPB filter with an initial estimate computing
+  also with the PPB filter with a smaller search window size.
+
+- psnr.m:
+  Computes the PSNR values.
+
+- snr.m:
+  Computes the SNR values.
+
+- plotimage.m:
+  Plot a grayscale image with pixel values ranged on [0..255].
+
+- plotimage_sar.m:
+  Plot a SAR amplitude image by rescaling the range of the image on the
+  intervale [0..mean + 3 sigma].
+
+For any comments, suggestions or questions please contact Charles
+Deledalle (charles.deledalle@gmail.com).

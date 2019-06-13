@@ -1,0 +1,1 @@
+This folder should contains input images.

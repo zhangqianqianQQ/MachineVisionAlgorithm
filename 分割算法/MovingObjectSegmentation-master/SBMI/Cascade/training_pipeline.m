@@ -1,0 +1,14 @@
+training('Board');
+training('Candela_m1.10');
+training('CAVIAR1');
+training('CAVIAR2');
+training('CaVignal');
+training('Foliage');
+training('HallAndMonitor');
+training('HighwayI');
+training('HighwayII');
+training('HumanBody2');
+training('IBMtest2');
+training('PeopleAndFoliage');
+training('Snellen');
+training('Toscana');

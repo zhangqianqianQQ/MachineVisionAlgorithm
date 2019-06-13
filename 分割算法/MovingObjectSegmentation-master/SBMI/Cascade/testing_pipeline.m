@@ -1,0 +1,14 @@
+testing('Board');
+testing('Candela_m1.10');
+testing('CAVIAR1');
+testing('CAVIAR2');
+testing('CaVignal');
+testing('Foliage');
+testing('HallAndMonitor');
+testing('HighwayI');
+testing('HighwayII');
+testing('HumanBody2');
+testing('IBMtest2');
+testing('PeopleAndFoliage');
+testing('Snellen');
+testing('Toscana');

@@ -1,0 +1,1 @@
+This folder should contains binary images representing corresponding groundtruth of input images.

@@ -1,0 +1,22 @@
+# Ignore File for Matlab
+# https://github.com/github/gitignore/blob/master/Global/Matlab.gitignore
+
+# Windows default autosave extension
+*.asv
+
+# OSX / *nix default autosave extension
+*.m~
+
+# Compiled MEX binaries (all platforms)
+*.mex*
+
+# Simulink Code Generation
+slprj/
+
+# Matlab .mat files
+#*.mat
+
+# Latex Report
+*.aux
+*.log
+*.synctex.gz

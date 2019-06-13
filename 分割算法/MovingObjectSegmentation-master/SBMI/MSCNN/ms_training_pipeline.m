@@ -1,0 +1,14 @@
+% regular_training_ms('Board');
+% regular_training_ms('Candela_m1.10');
+% regular_training_ms('CAVIAR1');
+% regular_training_ms('CAVIAR2');
+% regular_training_ms('CaVignal');
+regular_training_ms('Foliage');
+% regular_training_ms('HallAndMonitor');
+% regular_training_ms('HighwayI');
+% regular_training_ms('HighwayII');
+% regular_training_ms('HumanBody2');
+% regular_training_ms('IBMtest2');
+% regular_training_ms('PeopleAndFoliage');
+% regular_training_ms('Snellen');
+% regular_training_ms('Toscana');

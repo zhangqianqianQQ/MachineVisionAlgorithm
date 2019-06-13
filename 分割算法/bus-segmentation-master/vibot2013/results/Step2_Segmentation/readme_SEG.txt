@@ -1,0 +1,1 @@
+This folder should contains segementation output (2nd Step)
