@@ -1,0 +1,180 @@
+---------------------------------------------------------------------------
+Training stage 0
+Sampled 1109 windows from 1109 images.
+Done sampling windows (time=16s).
+Extracting features... done (time=1s).
+Computing lambdas... done (time=15s).
+Sampled 30000 windows from 1216 images.
+Done sampling windows (time=23s).
+Extracting features... done (time=21s).
+Training AdaBoost: nWeak= 32 nFtrs=1260 pos=2218 neg=30000
+ i=  16 alpha=0.561 err=0.246 loss=1.19e-02
+ i=  32 alpha=0.638 err=0.218 loss=7.03e-04
+Done training err=0.0000 fp=0.0000 fn=0.0000 (t=0.5s).
+Done training stage 0 (time=78s).
+---------------------------------------------------------------------------
+Training stage 1
+
+Sampling windows   completed=1.4% [elapsed=1.2s / remaining~=88.0s]Sampling windows   completed=2.6% [elapsed=2.5s / remaining~=91.9s]Sampling windows   completed=4.4% [elapsed=3.8s / remaining~=82.9s]Sampling windows   completed=5.8% [elapsed=5.1s / remaining~=82.6s]Sampling windows   completed=7.5% [elapsed=6.4s / remaining~=79.2s]Sampling windows   completed=8.9% [elapsed=7.7s / remaining~=78.9s]Sampling windows   completed=10.3% [elapsed=9.0s / remaining~=78.5s]Sampling windows   completed=11.4% [elapsed=10.3s / remaining~=79.8s]Sampling windows   completed=12.7% [elapsed=11.6s / remaining~=79.6s]Sampling windows   completed=14.1% [elapsed=13.0s / remaining~=79.0s]Sampling windows   completed=15.8% [elapsed=14.5s / remaining~=77.2s]Sampling windows   completed=17.1% [elapsed=15.9s / remaining~=77.2s]Sampling windows   completed=18.4% [elapsed=17.3s / remaining~=76.9s]Sampling windows   completed=20.1% [elapsed=18.9s / remaining~=75.1s]Sampling windows   completed=21.3% [elapsed=20.4s / remaining~=75.3s]Sampling windows   completed=23.1% [elapsed=22.1s / remaining~=73.5s]Sampling windows   completed=24.5% [elapsed=23.7s / remaining~=73.0s]Sampling windows   completed=25.7% [elapsed=25.3s / remaining~=72.9s]Sampling windows   completed=27.2% [elapsed=26.9s / remaining~=72.1s]Sampling windows   completed=28.4% [elapsed=28.5s / remaining~=71.9s]Sampling windows   completed=29.8% [elapsed=30.2s / remaining~=71.2s]Sampling windows   completed=31.0% [elapsed=31.9s / remaining~=71.1s]Sampling windows   completed=32.5% [elapsed=33.7s / remaining~=70.0s]Sampling windows   completed=33.9% [elapsed=35.5s / remaining~=69.1s]Sampling windows   completed=35.3% [elapsed=37.3s / remaining~=68.3s]Sampling windows   completed=36.5% [elapsed=39.1s / remaining~=68.0s]Sampling windows   completed=38.0% [elapsed=41.1s / remaining~=67.1s]Sampling windows   completed=39.3% [elapsed=43.0s / remaining~=66.2s]Sampling windows   completed=40.9% [elapsed=45.0s / remaining~=65.0s]Sampling windows   completed=42.1% [elapsed=46.9s / remaining~=64.5s]Sampling windows   completed=43.1% [elapsed=48.7s / remaining~=64.2s]Sampling windows   completed=44.8% [elapsed=50.8s / remaining~=62.6s]Sampling windows   completed=46.1% [elapsed=52.8s / remaining~=61.7s]Sampling windows   completed=47.5% [elapsed=54.8s / remaining~=60.5s]Sampling windows   completed=48.9% [elapsed=57.1s / remaining~=59.6s]Sampling windows   completed=50.7% [elapsed=59.3s / remaining~=57.6s]Sampling windows   completed=51.9% [elapsed=61.4s / remaining~=56.9s]Sampling windows   completed=53.2% [elapsed=63.5s / remaining~=55.8s]Sampling windows   completed=54.5% [elapsed=65.6s / remaining~=54.8s]Sampling windows   completed=55.7% [elapsed=67.8s / remaining~=54.0s]Sampling windows   completed=57.0% [elapsed=70.0s / remaining~=52.8s]Sampling windows   completed=58.3% [elapsed=72.2s / remaining~=51.6s]Sampling windows   completed=59.8% [elapsed=74.5s / remaining~=50.0s]Sampling windows   completed=61.0% [elapsed=76.6s / remaining~=49.1s]Sampling windows   completed=62.3% [elapsed=79.0s / remaining~=47.8s]Sampling windows   completed=63.8% [elapsed=81.4s / remaining~=46.2s]Sampling windows   completed=65.1% [elapsed=83.6s / remaining~=44.8s]Sampling windows   completed=66.4% [elapsed=85.9s / remaining~=43.5s]Sampling windows   completed=67.7% [elapsed=88.2s / remaining~=42.2s]Sampling windows   completed=69.1% [elapsed=90.6s / remaining~=40.5s]Sampling windows   completed=70.7% [elapsed=93.0s / remaining~=38.6s]Sampling windows   completed=72.0% [elapsed=95.4s / remaining~=37.1s]Sampling windows   completed=73.2% [elapsed=97.8s / remaining~=35.8s]Sampling windows   completed=74.9% [elapsed=100.4s / remaining~=33.6s]Sampling windows   completed=76.2% [elapsed=102.8s / remaining~=32.2s]{Warning: JPEG library error (8 bit), "Corrupt JPEG data: 4346 extraneous bytes before marker 0xd9"."} 
+Sampling windows   completed=77.5% [elapsed=105.2s / remaining~=30.6s]Sampling windows   completed=79.0% [elapsed=107.8s / remaining~=28.7s]Sampling windows   completed=80.3% [elapsed=110.4s / remaining~=27.1s]Sampling windows   completed=81.5% [elapsed=112.8s / remaining~=25.5s]Sampling windows   completed=83.0% [elapsed=115.4s / remaining~=23.6s]Sampling windows   completed=84.3% [elapsed=118.0s / remaining~=22.0s]Sampling windows   completed=85.4% [elapsed=120.5s / remaining~=20.7s]Sampling windows   completed=87.0% [elapsed=123.3s / remaining~=18.4s]Sampling windows   completed=88.6% [elapsed=126.0s / remaining~=16.3s]Sampling windows   completed=90.0% [elapsed=128.8s / remaining~=14.3s]Sampling windows   completed=91.6% [elapsed=131.6s / remaining~=12.1s]Sampling windows   completed=92.9% [elapsed=134.4s / remaining~=10.3s]Sampling windows   completed=94.2% [elapsed=137.1s / remaining~=8.5s]Sampling windows   completed=95.7% [elapsed=140.1s / remaining~=6.3s]Sampling windows   completed=97.4% [elapsed=142.9s / remaining~=3.9s]Sampling windows   completed=98.8% [elapsed=145.7s / remaining~=1.8s]Sampling windows   completed=100.0% [elapsed=148.6s / remaining~=0.0s]
+Sampled 30000 windows from 4608 images.
+Done sampling windows (time=154s).
+Extracting features... done (time=22s).
+Training AdaBoost: nWeak=128 nFtrs=1260 pos=2218 neg=30000
+ i=  16 alpha=0.469 err=0.281 loss=1.06e-01
+ i=  32 alpha=0.484 err=0.275 loss=2.40e-02
+ i=  48 alpha=0.445 err=0.291 loss=6.20e-03
+ i=  64 alpha=0.321 err=0.345 loss=1.73e-03
+ i=  80 alpha=0.427 err=0.299 loss=5.00e-04
+ i=  96 alpha=0.451 err=0.288 loss=1.32e-04
+ i= 112 alpha=0.360 err=0.327 loss=4.18e-05
+ i= 128 alpha=0.386 err=0.316 loss=1.27e-05
+Done training err=0.0000 fp=0.0000 fn=0.0000 (t=1.2s).
+Done training stage 1 (time=178s).
+---------------------------------------------------------------------------
+Training stage 2
+
+Sampling windows   completed=1.9% [elapsed=1.9s / remaining~=97.6s]Sampling windows   completed=3.8% [elapsed=3.8s / remaining~=96.5s]Sampling windows   completed=5.8% [elapsed=5.7s / remaining~=93.3s]Sampling windows   completed=7.7% [elapsed=7.6s / remaining~=91.3s]Sampling windows   completed=9.6% [elapsed=9.5s / remaining~=89.8s]Sampling windows   completed=11.5% [elapsed=11.4s / remaining~=87.7s]Sampling windows   completed=13.4% [elapsed=13.2s / remaining~=85.3s]Sampling windows   completed=15.3% [elapsed=15.1s / remaining~=83.3s]Sampling windows   completed=17.3% [elapsed=17.0s / remaining~=81.5s]Sampling windows   completed=19.2% [elapsed=19.0s / remaining~=80.0s]Sampling windows   completed=21.1% [elapsed=21.0s / remaining~=78.6s]Sampling windows   completed=22.0% [elapsed=22.0s / remaining~=77.9s]Sampling windows   completed=24.0% [elapsed=23.9s / remaining~=75.8s]Sampling windows   completed=25.9% [elapsed=25.8s / remaining~=73.9s]Sampling windows   completed=26.8% [elapsed=26.9s / remaining~=73.2s]Sampling windows   completed=28.8% [elapsed=28.7s / remaining~=71.1s]Sampling windows   completed=30.7% [elapsed=30.6s / remaining~=69.2s]Sampling windows   completed=32.6% [elapsed=32.5s / remaining~=67.2s]Sampling windows   completed=34.5% [elapsed=34.3s / remaining~=65.0s]Sampling windows   completed=36.4% [elapsed=36.2s / remaining~=63.2s]Sampling windows   completed=38.3% [elapsed=38.1s / remaining~=61.3s]Sampling windows   completed=40.3% [elapsed=40.1s / remaining~=59.5s]Sampling windows   completed=42.2% [elapsed=42.0s / remaining~=57.6s]Sampling windows   completed=44.1% [elapsed=44.0s / remaining~=55.8s]Sampling windows   completed=46.0% [elapsed=45.9s / remaining~=53.9s]{Warning: JPEG library error (8 bit), "Corrupt JPEG data: 4346 extraneous bytes before marker 0xd9"."} 
+Sampling windows   completed=47.0% [elapsed=46.9s / remaining~=53.0s]Sampling windows   completed=48.9% [elapsed=48.9s / remaining~=51.1s]Sampling windows   completed=50.8% [elapsed=50.8s / remaining~=49.2s]Sampling windows   completed=52.7% [elapsed=52.8s / remaining~=47.3s]Sampling windows   completed=54.6% [elapsed=54.7s / remaining~=45.4s]Sampling windows   completed=56.6% [elapsed=56.6s / remaining~=43.5s]Sampling windows   completed=58.5% [elapsed=58.5s / remaining~=41.5s]Sampling windows   completed=59.4% [elapsed=59.5s / remaining~=40.6s]Sampling windows   completed=61.3% [elapsed=61.5s / remaining~=38.7s]Sampling windows   completed=63.3% [elapsed=63.4s / remaining~=36.8s]Sampling windows   completed=65.2% [elapsed=65.4s / remaining~=34.9s]Sampling windows   completed=67.1% [elapsed=67.3s / remaining~=33.0s]Sampling windows   completed=68.1% [elapsed=68.4s / remaining~=32.1s]Sampling windows   completed=70.0% [elapsed=70.3s / remaining~=30.2s]Sampling windows   completed=70.9% [elapsed=71.4s / remaining~=29.2s]Sampling windows   completed=72.8% [elapsed=73.3s / remaining~=27.3s]Sampling windows   completed=73.8% [elapsed=74.4s / remaining~=26.4s]Sampling windows   completed=75.7% [elapsed=76.4s / remaining~=24.5s]Sampling windows   completed=77.6% [elapsed=78.3s / remaining~=22.6s]Sampling windows   completed=78.6% [elapsed=79.3s / remaining~=21.6s]Sampling windows   completed=80.5% [elapsed=81.4s / remaining~=19.7s]Sampling windows   completed=82.4% [elapsed=83.3s / remaining~=17.8s]Sampling windows   completed=84.3% [elapsed=85.3s / remaining~=15.8s]Sampling windows   completed=85.3% [elapsed=86.3s / remaining~=14.9s]Sampling windows   completed=86.3% [elapsed=87.4s / remaining~=13.9s]Sampling windows   completed=87.2% [elapsed=88.6s / remaining~=13.0s]Sampling windows   completed=88.2% [elapsed=89.6s / remaining~=12.0s]Sampling windows   completed=89.1% [elapsed=90.6s / remaining~=11.0s]Sampling windows   completed=91.1% [elapsed=92.6s / remaining~=9.1s]Sampling windows   completed=92.0% [elapsed=93.7s / remaining~=8.1s]Sampling windows   completed=93.9% [elapsed=95.6s / remaining~=6.2s]Sampling windows   completed=95.9% [elapsed=97.7s / remaining~=4.2s]Sampling windows   completed=96.8% [elapsed=98.7s / remaining~=3.3s]Sampling windows   completed=97.8% [elapsed=99.7s / remaining~=2.3s]Sampling windows   completed=99.7% [elapsed=101.7s / remaining~=0.3s]Sampling windows   completed=100.0% [elapsed=102.1s / remaining~=0.0s]
+Sampled 3112 windows from 6677 images.
+Done sampling windows (time=102s).
+Extracting features... done (time=2s).
+Training AdaBoost: nWeak=512 nFtrs=1260 pos=2218 neg=30000
+ i=  16 alpha=0.492 err=0.272 loss=1.34e-01
+ i=  32 alpha=0.486 err=0.274 loss=2.79e-02
+ i=  48 alpha=0.328 err=0.342 loss=8.24e-03
+ i=  64 alpha=0.458 err=0.286 loss=2.38e-03
+ i=  80 alpha=0.371 err=0.323 loss=7.36e-04
+ i=  96 alpha=0.392 err=0.314 loss=2.39e-04
+ i= 112 alpha=0.405 err=0.308 loss=8.44e-05
+ i= 128 alpha=0.323 err=0.344 loss=3.00e-05
+ i= 144 alpha=0.354 err=0.330 loss=1.03e-05
+ i= 160 alpha=0.350 err=0.332 loss=3.31e-06
+ i= 176 alpha=0.359 err=0.328 loss=1.20e-06
+ i= 192 alpha=0.374 err=0.321 loss=4.72e-07
+ i= 208 alpha=0.326 err=0.342 loss=1.53e-07
+ i= 224 alpha=0.357 err=0.329 loss=5.56e-08
+ i= 240 alpha=0.291 err=0.359 loss=2.08e-08
+ i= 256 alpha=0.366 err=0.325 loss=7.62e-09
+ i= 272 alpha=0.372 err=0.322 loss=2.58e-09
+ i= 288 alpha=0.341 err=0.336 loss=9.37e-10
+ i= 304 alpha=0.335 err=0.338 loss=3.33e-10
+ i= 320 alpha=0.348 err=0.333 loss=1.20e-10
+ i= 336 alpha=0.329 err=0.341 loss=4.24e-11
+ i= 352 alpha=0.338 err=0.337 loss=1.67e-11
+ i= 368 alpha=0.473 err=0.280 loss=5.59e-12
+ i= 384 alpha=0.374 err=0.321 loss=2.09e-12
+ i= 400 alpha=0.361 err=0.327 loss=7.81e-13
+ i= 416 alpha=0.371 err=0.323 loss=2.69e-13
+ i= 432 alpha=0.409 err=0.306 loss=9.50e-14
+ i= 448 alpha=0.309 err=0.350 loss=3.53e-14
+ i= 464 alpha=0.431 err=0.297 loss=1.22e-14
+ i= 480 alpha=0.415 err=0.304 loss=4.37e-15
+ i= 496 alpha=0.403 err=0.309 loss=1.55e-15
+ i= 512 alpha=0.375 err=0.321 loss=5.59e-16
+Done training err=0.0000 fp=0.0000 fn=0.0000 (t=4.4s).
+Done training stage 2 (time=109s).
+---------------------------------------------------------------------------
+Training stage 3
+
+Sampling windows   completed=1.9% [elapsed=1.8s / remaining~=90.3s]Sampling windows   completed=3.8% [elapsed=3.6s / remaining~=89.4s]Sampling windows   completed=5.8% [elapsed=5.3s / remaining~=86.6s]Sampling windows   completed=7.7% [elapsed=7.0s / remaining~=84.8s]Sampling windows   completed=9.6% [elapsed=8.8s / remaining~=83.0s]Sampling windows   completed=11.5% [elapsed=10.5s / remaining~=81.1s]{Warning: JPEG library error (8 bit), "Corrupt JPEG data: 4346 extraneous bytes before marker 0xd9"."} 
+Sampling windows   completed=13.4% [elapsed=12.3s / remaining~=79.4s]Sampling windows   completed=15.3% [elapsed=14.1s / remaining~=77.7s]Sampling windows   completed=17.3% [elapsed=15.8s / remaining~=75.9s]Sampling windows   completed=19.2% [elapsed=17.5s / remaining~=74.0s]Sampling windows   completed=21.1% [elapsed=19.3s / remaining~=72.1s]Sampling windows   completed=23.0% [elapsed=21.0s / remaining~=70.3s]Sampling windows   completed=24.9% [elapsed=22.7s / remaining~=68.5s]Sampling windows   completed=26.8% [elapsed=24.4s / remaining~=66.6s]Sampling windows   completed=28.8% [elapsed=26.2s / remaining~=64.9s]Sampling windows   completed=30.7% [elapsed=28.0s / remaining~=63.3s]Sampling windows   completed=32.6% [elapsed=29.7s / remaining~=61.4s]Sampling windows   completed=34.5% [elapsed=31.4s / remaining~=59.7s]Sampling windows   completed=36.4% [elapsed=33.1s / remaining~=57.9s]Sampling windows   completed=38.3% [elapsed=34.9s / remaining~=56.1s]Sampling windows   completed=40.3% [elapsed=36.6s / remaining~=54.3s]Sampling windows   completed=42.2% [elapsed=38.4s / remaining~=52.6s]Sampling windows   completed=44.1% [elapsed=40.1s / remaining~=50.9s]Sampling windows   completed=46.0% [elapsed=41.9s / remaining~=49.2s]Sampling windows   completed=47.9% [elapsed=43.7s / remaining~=47.5s]Sampling windows   completed=49.8% [elapsed=45.6s / remaining~=45.9s]Sampling windows   completed=51.8% [elapsed=47.4s / remaining~=44.1s]Sampling windows   completed=53.7% [elapsed=49.1s / remaining~=42.4s]Sampling windows   completed=55.6% [elapsed=50.8s / remaining~=40.5s]Sampling windows   completed=57.5% [elapsed=52.5s / remaining~=38.8s]Sampling windows   completed=59.4% [elapsed=54.2s / remaining~=37.0s]Sampling windows   completed=61.3% [elapsed=55.9s / remaining~=35.2s]Sampling windows   completed=63.3% [elapsed=57.6s / remaining~=33.5s]Sampling windows   completed=65.2% [elapsed=59.4s / remaining~=31.7s]Sampling windows   completed=67.1% [elapsed=61.1s / remaining~=30.0s]Sampling windows   completed=69.0% [elapsed=62.8s / remaining~=28.2s]Sampling windows   completed=70.9% [elapsed=64.5s / remaining~=26.4s]Sampling windows   completed=72.8% [elapsed=66.2s / remaining~=24.7s]Sampling windows   completed=74.8% [elapsed=67.9s / remaining~=22.9s]Sampling windows   completed=76.7% [elapsed=69.7s / remaining~=21.2s]Sampling windows   completed=78.6% [elapsed=71.4s / remaining~=19.4s]Sampling windows   completed=80.5% [elapsed=73.2s / remaining~=17.7s]Sampling windows   completed=82.4% [elapsed=74.9s / remaining~=16.0s]Sampling windows   completed=84.3% [elapsed=76.6s / remaining~=14.2s]Sampling windows   completed=86.3% [elapsed=78.4s / remaining~=12.5s]Sampling windows   completed=88.2% [elapsed=80.1s / remaining~=10.7s]Sampling windows   completed=90.1% [elapsed=81.9s / remaining~=9.0s]Sampling windows   completed=92.0% [elapsed=83.6s / remaining~=7.3s]Sampling windows   completed=93.9% [elapsed=85.3s / remaining~=5.5s]Sampling windows   completed=95.9% [elapsed=87.1s / remaining~=3.8s]Sampling windows   completed=97.8% [elapsed=88.7s / remaining~=2.0s]Sampling windows   completed=99.7% [elapsed=90.5s / remaining~=0.3s]Sampling windows   completed=100.0% [elapsed=90.7s / remaining~=0.0s]
+Sampled 347 windows from 6677 images.
+Done sampling windows (time=91s).
+Extracting features... done (time=0s).
+Training AdaBoost: nWeak=2048 nFtrs=1260 pos=2218 neg=30000
+ i=  16 alpha=0.411 err=0.306 loss=1.21e-01
+ i=  32 alpha=0.443 err=0.292 loss=2.74e-02
+ i=  48 alpha=0.371 err=0.322 loss=8.91e-03
+ i=  64 alpha=0.368 err=0.324 loss=3.03e-03
+ i=  80 alpha=0.418 err=0.302 loss=9.63e-04
+ i=  96 alpha=0.379 err=0.319 loss=3.56e-04
+ i= 112 alpha=0.343 err=0.335 loss=1.17e-04
+ i= 128 alpha=0.339 err=0.337 loss=4.30e-05
+ i= 144 alpha=0.295 err=0.357 loss=1.49e-05
+ i= 160 alpha=0.334 err=0.339 loss=5.57e-06
+ i= 176 alpha=0.366 err=0.325 loss=2.05e-06
+ i= 192 alpha=0.341 err=0.336 loss=7.56e-07
+ i= 208 alpha=0.380 err=0.319 loss=2.53e-07
+ i= 224 alpha=0.354 err=0.330 loss=8.80e-08
+ i= 240 alpha=0.378 err=0.320 loss=3.12e-08
+ i= 256 alpha=0.321 err=0.345 loss=1.15e-08
+ i= 272 alpha=0.337 err=0.338 loss=4.45e-09
+ i= 288 alpha=0.359 err=0.328 loss=1.56e-09
+ i= 304 alpha=0.322 err=0.344 loss=5.67e-10
+ i= 320 alpha=0.349 err=0.332 loss=2.17e-10
+ i= 336 alpha=0.304 err=0.352 loss=7.97e-11
+ i= 352 alpha=0.257 err=0.374 loss=2.98e-11
+ i= 368 alpha=0.334 err=0.339 loss=1.14e-11
+ i= 384 alpha=0.386 err=0.316 loss=4.27e-12
+ i= 400 alpha=0.402 err=0.309 loss=1.57e-12
+ i= 416 alpha=0.352 err=0.331 loss=5.31e-13
+ i= 432 alpha=0.330 err=0.341 loss=2.05e-13
+ i= 448 alpha=0.426 err=0.299 loss=7.36e-14
+ i= 464 alpha=0.330 err=0.341 loss=2.85e-14
+ i= 480 alpha=0.450 err=0.289 loss=1.00e-14
+ i= 496 alpha=0.327 err=0.342 loss=3.97e-15
+ i= 512 alpha=0.335 err=0.339 loss=1.48e-15
+ i= 528 alpha=0.357 err=0.329 loss=5.49e-16
+ i= 544 alpha=0.390 err=0.315 loss=2.07e-16
+ i= 560 alpha=0.360 err=0.327 loss=7.83e-17
+ i= 576 alpha=0.331 err=0.340 loss=2.92e-17
+ i= 592 alpha=0.339 err=0.337 loss=9.79e-18
+ i= 608 alpha=0.362 err=0.327 loss=3.59e-18
+ i= 624 alpha=0.392 err=0.313 loss=1.31e-18
+ i= 640 alpha=0.332 err=0.340 loss=4.94e-19
+ i= 656 alpha=0.358 err=0.328 loss=1.74e-19
+ i= 672 alpha=0.320 err=0.345 loss=6.44e-20
+ i= 688 alpha=0.374 err=0.321 loss=2.37e-20
+ i= 704 alpha=0.354 err=0.330 loss=9.13e-21
+ i= 720 alpha=0.351 err=0.332 loss=3.14e-21
+ i= 736 alpha=0.324 err=0.344 loss=1.23e-21
+ i= 752 alpha=0.316 err=0.347 loss=4.86e-22
+ i= 768 alpha=0.366 err=0.325 loss=1.72e-22
+ i= 784 alpha=0.337 err=0.338 loss=6.20e-23
+ i= 800 alpha=0.242 err=0.382 loss=2.34e-23
+ i= 816 alpha=0.425 err=0.299 loss=8.39e-24
+ i= 832 alpha=0.340 err=0.336 loss=3.13e-24
+ i= 848 alpha=0.349 err=0.332 loss=1.09e-24
+ i= 864 alpha=0.285 err=0.361 loss=4.11e-25
+ i= 880 alpha=0.370 err=0.323 loss=1.56e-25
+ i= 896 alpha=0.314 err=0.348 loss=6.09e-26
+ i= 912 alpha=0.393 err=0.313 loss=2.23e-26
+ i= 928 alpha=0.312 err=0.349 loss=8.09e-27
+ i= 944 alpha=0.375 err=0.321 loss=3.11e-27
+ i= 960 alpha=0.363 err=0.326 loss=1.14e-27
+ i= 976 alpha=0.399 err=0.311 loss=4.30e-28
+ i= 992 alpha=0.368 err=0.324 loss=1.52e-28
+ i=1008 alpha=0.340 err=0.336 loss=5.99e-29
+ i=1024 alpha=0.335 err=0.338 loss=2.35e-29
+ i=1040 alpha=0.443 err=0.292 loss=8.98e-30
+ i=1056 alpha=0.360 err=0.327 loss=3.46e-30
+ i=1072 alpha=0.329 err=0.341 loss=1.39e-30
+ i=1088 alpha=0.340 err=0.336 loss=5.21e-31
+ i=1104 alpha=0.347 err=0.333 loss=1.94e-31
+ i=1120 alpha=0.329 err=0.341 loss=7.52e-32
+ i=1136 alpha=0.349 err=0.332 loss=2.70e-32
+ i=1152 alpha=0.313 err=0.348 loss=1.01e-32
+ i=1168 alpha=0.301 err=0.354 loss=3.73e-33
+ i=1184 alpha=0.380 err=0.319 loss=1.41e-33
+ i=1200 alpha=0.359 err=0.328 loss=5.09e-34
+ i=1216 alpha=0.318 err=0.346 loss=1.77e-34
+ i=1232 alpha=0.335 err=0.339 loss=6.47e-35
+ i=1248 alpha=0.351 err=0.332 loss=2.47e-35
+ i=1264 alpha=0.342 err=0.336 loss=9.87e-36
+ i=1280 alpha=0.334 err=0.339 loss=3.76e-36
+ i=1296 alpha=0.386 err=0.316 loss=1.34e-36
+ i=1312 alpha=0.375 err=0.321 loss=5.26e-37
+ i=1328 alpha=0.367 err=0.324 loss=1.97e-37
+ i=1344 alpha=0.421 err=0.301 loss=6.80e-38
+ i=1360 alpha=0.351 err=0.331 loss=2.43e-38
+ i=1376 alpha=0.376 err=0.320 loss=9.32e-39
+ i=1392 alpha=0.321 err=0.345 loss=3.38e-39
+ i=1408 alpha=0.329 err=0.341 loss=1.31e-39
+ i=1424 alpha=0.332 err=0.340 loss=4.92e-40
+ i=1440 alpha=0.288 err=0.360 loss=1.88e-40
+ stopping early
+Done training err=0.0000 fp=0.0000 fn=0.0000 (t=12.4s).
+Done training stage 3 (time=104s).
+---------------------------------------------------------------------------
+Done training (time=469s).

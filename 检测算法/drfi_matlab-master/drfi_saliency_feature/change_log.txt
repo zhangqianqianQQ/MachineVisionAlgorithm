@@ -1,0 +1,2 @@
+2014-01-02
+Scripts in feature folder are latest version which is not relying on the texton, and LBP feature (for texture description) is added

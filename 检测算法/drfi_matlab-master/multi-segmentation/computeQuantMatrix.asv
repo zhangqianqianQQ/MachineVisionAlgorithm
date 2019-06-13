@@ -1,0 +1,40 @@
+function Q = computeQuantMatrix(image, bins)
+%compute the quantization matrix based on the 3-dimensional matrix imgLAB
+
+%     if length(bins) ~= 3
+%         error('Need 3 bins for quantization');
+%     end
+
+%     f = [1 4 6 4 1];
+%     image = imfilter(image, f);
+%     image = imfilter(image, f');
+    
+    image_lab = rgb2lab(image);
+    L = image_lab(:,:,1);
+    a = image_lab(:,:,2);
+    b = image_lab(:,:,3);
+    
+    image_hsv = rgb2hsv(image);
+    H = image_hsv(:,:,1);
+    ind = find(H > 0.5);
+    H(ind) = 1 - H(ind);
+    %s = image_hsv(:,:,2);
+
+    ll = min(floor(L/(100/bins(1))) + 1,bins(1));
+    aa = min(floor((a+120)/(240/bins(2))) + 1,bins(2));
+    bb = min(floor((b+120)/(240/bins(3))) + 1,bins(3));
+    hh = min(floor(H*bins(4)) + 1, bins(4));
+    %ss = min(floor(s*bins(5)) + 1, bins(5));
+
+%     Q = (ll-1)* bins(2)*bins(3)*bins(4)*bins(5) + ...
+%         (aa-1)* bins(3)*bins(4)*bins(5) + ...
+%         (bb-1)* bins(4)*bins(5) + ...
+%         (hh-1)* bins(5) + ...
+%          ss + 1;
+        Q = (ll-1)* bins(2)*bins(3)*bins(4) + ...
+        (aa-1)* bins(3)*bins(4) + ...
+        (bb-1)* bins(4) + ...
+        hh + 1;
+%     Q = (ll-1) * bins(2) * bins(3) + ...
+%         (aa-1) * bins(3) + ...
+%         bb + 1;
