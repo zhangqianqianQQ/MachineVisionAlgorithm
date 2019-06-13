@@ -1,0 +1,32 @@
+caffe
+
+# data for training
+data/VOC2012/*
+*.png
+*.jpg
+data/imagesets/*
+*.txt
+
+# files created in training directory
+*.caffemodel
+*.caffemodel*
+training_log
+testing_log
+snapshot
+training/001_stage_1/*
+training/002_stage_2/*
+training/003_make_bn_layer_testable/*
+
+# temporarily created files
+*~
+*.swp
+*.tar.gz
+*.tar
+*.zip
+
+# inference files
+inference/DeconvNet
+inference/FCN
+inference/data/*
+inference/ext/*
+inference/results
