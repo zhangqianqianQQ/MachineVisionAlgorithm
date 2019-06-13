@@ -1,0 +1,10 @@
+0 cat
+1 cow
+2 dog
+3 horse
+4 sheep
+5 boat
+6 bus
+7 car
+8 train
+9 tvmonitor
