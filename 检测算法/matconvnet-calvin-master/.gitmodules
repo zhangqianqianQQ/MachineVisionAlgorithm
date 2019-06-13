@@ -1,0 +1,6 @@
+[submodule "matconvnet"]
+	path = matconvnet
+	url = https://github.com/vlfeat/matconvnet.git
+[submodule "matconvnet-fcn"]
+	path = matconvnet-fcn
+	url = https://github.com/vlfeat/matconvnet-fcn.git

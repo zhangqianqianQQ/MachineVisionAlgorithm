@@ -1,0 +1,18 @@
+*.xcodeproj/*xcuserdata*
+*.xcodeproj/project.xcworkspace/*xcuserdata*
+*.xcodeproj/project.xcworkspace/xcshareddata/
+mex/*
+mex
+data
+*.o
+*.pyc
+*~
+index.html
+local
+
+# Visual C
+*.suo
+*.user
+*.sdf
+*.opensdf
+
